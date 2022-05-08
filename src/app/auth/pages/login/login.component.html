@@ -1,0 +1,44 @@
+<body>
+  <div class="center">
+    <h1>Login</h1>
+    <form method="post">
+      <ng-container *ngIf="!loading">
+        <div class="txt_field">
+          <input [(ngModel)]="email" type="text" required name="email">
+          <span></span>
+          <label>Username</label>
+        </div>
+        <div class="txt_field">
+          <input [(ngModel)]="password" type="password" name="password" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+
+        <input type="submit" value="Login" (click)="loginWithEmailAndPassword()">
+
+
+
+
+
+      </ng-container>
+      <ng-container *ngIf="loading">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+
+      </ng-container>
+
+      <div class="signup_link">
+        Not a member? <a href="#">Signup</a>
+      </div>
+    </form>
+
+    <div *ngIf="invalidLogin" class="alert alert-danger" style="text-align:center;" role="alert">
+      Invalid Username or password
+    </div>
+
+  </div>
+
+
+</body>
