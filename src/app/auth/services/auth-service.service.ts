@@ -14,4 +14,8 @@ export class AuthService {
     login(email:any, password: any): any{
     return this.authService.signInWithEmailAndPassword(email,password)
     }
+
+    logout():any{
+     return this.authService.signOut();
+    }
 }

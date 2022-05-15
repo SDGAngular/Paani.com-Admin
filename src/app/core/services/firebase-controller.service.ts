@@ -9,14 +9,27 @@ export class FirebaseControllerService {
   allRecords: any=[];
   constructor(private fireStore: AngularFirestore) { }
 
-  public  showRecords():Observable<any>{
+  public  showRecords(key?:string):Observable<any>{
+
+    if(key){
+      return  this.fireStore.collection(key).get();
+    }
     return  this.fireStore.collection('products').get();
    
   }
 
-  updateRecords(recordid: any, record: any)
+  addNewRecord(key:any,record:any){
+return this.fireStore.collection(key).add(record);
+  }
+
+  updateRecords(key:string, recordid: any, record: any)
   {
-    this.fireStore.doc('products/' + recordid).update(record);
+    this.fireStore.doc(key+'/' + recordid).update(record);
+  }
+
+  delete_record(key:any,record_id:any): any
+  {
+    return this.fireStore.doc(key+'/' + record_id).delete();
   }
 
 

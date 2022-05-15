@@ -15,7 +15,7 @@
             </div>
           </div>
     </div>
-    <div class="col-md-3"  style="margin-top:120px" >
+    <div class="col-md-3"   style="margin-top:120px" >
         <div class="card">
             <div class="card-header">
               Total Complaints
@@ -53,7 +53,7 @@
     <div (click)="goToProducts()" class="col-md-4">
        
                 
-                    <div class="alert alert-primary" role="alert">
+                    <div style="cursor:pointer" class="alert alert-primary" role="alert">
                     
   
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-node-plus-fill" viewBox="0 0 16 16">
@@ -74,7 +74,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="alert alert-danger" role="alert">
+        <div (click)="goToComplaints()" style="cursor:pointer" class="alert alert-danger" role="alert">
                     
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-radioactive" viewBox="0 0 16 16">
                 <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z"/>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div style="cursor:pointer" class="col-md-4">
         <div class="alert alert-success" role="alert">
                   
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-hdd-stack" viewBox="0 0 16 16">

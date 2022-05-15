@@ -23,6 +23,11 @@ export class MainDashboardComponent implements OnInit {
     this.router.navigate(['products/all-products'])
   }
 
+  goToComplaints(): void {
+    console.log('hello')
+    this.router.navigate(['complaints/all-complaints'])
+  }
+
   plotSalesChart(): void {
     let htmlRef = this.elementRef.nativeElement.querySelector(`#sales`) as HTMLCanvasElement;
     const ctx = htmlRef.getContext('2d');
