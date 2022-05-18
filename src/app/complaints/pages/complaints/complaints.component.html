@@ -6,7 +6,7 @@
       class="card text-center mt-2 mb-2 ml-2"
       style="width: 18rem; height: 10rem"
     >
-      <div class="card-body">
+      <div class="card-body mt-5">
         <p class="card-title fs-1">{{resolvedComplaints}}</p>
         <p class="card-text">Resolved Complaints</p>
       </div>
@@ -18,19 +18,19 @@
       class="card text-center mt-2 mb-2 ml-2"
       style="width: 18rem; height: 10rem; box-shadow: inset"
     >
-      <div class="card-body">
+      <div class="card-body mt-5">
         <p class="card-title fs-1">{{unresolvedComplaints}}</p>
         <p class="card-text">Unresolved Complaints</p>
       </div>
     </div>
   </div>
 
-  <div class="col-md-3" style="margin-top: 60px">
+  <div class="col-md-3 " style="margin-top: 60px">
     <div
       class="card text-center mt-2 mb-2 ml-2"
       style="width: 18rem; height: 10rem; box-shadow: inset"
     >
-      <div class="card-body">
+      <div class="card-body mt-5">
         <p class="card-title fs-1">{{escalatedComplaints}}</p>
         <p class="card-text">Escalated Complaints</p>
       </div>
@@ -158,6 +158,14 @@
         <h5 class="mb-6 mt-10 text-muted" style="text-align: center;">No Results found</h5>
       </div>
     </div>
+
+   
+
+    <button (click)="downloadExcel()" style="width:50px" *ngIf="complaintTableData.length>0" style="margin-left:90%; margin-top:10px;margin-bottom:10px;" type="button" class="btn btn-success">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-spreadsheet-fill" viewBox="0 0 16 16">
+        <path d="M12 0H4a2 2 0 0 0-2 2v4h12V2a2 2 0 0 0-2-2zm2 7h-4v2h4V7zm0 3h-4v2h4v-2zm0 3h-4v3h2a2 2 0 0 0 2-2v-1zm-5 3v-3H6v3h3zm-4 0v-3H2v1a2 2 0 0 0 2 2h1zm-3-4h3v-2H2v2zm0-3h3V7H2v2zm4 0V7h3v2H6zm0 1h3v2H6v-2z"/>
+      </svg>
+      Download Excel</button>
   </div>
 
  
@@ -193,3 +201,26 @@
     </div>
   </div>
 </div>
+
+<table [hidden]="true" id="excel-table">
+  <tr>
+    <th>Id</th>
+    <th>Complaint ID</th>
+    <th>Complaint Description</th>
+    <th>User ID</th>
+    <th>User Name</th>
+    <th>Status</th>
+  </tr>
+  <tr *ngFor="let item of complaintTableData">
+
+    <td>{{item.id}}</td>
+    <td>{{item.complaintID}}</td>
+    <td>{{item.complaintDesc}}</td>
+    <td>{{item.userID}}</td>
+    <td>{{item.userName}}</td>
+    <td>{{item.status}}</td>
+  
+   
+  </tr>
+</table>
+
