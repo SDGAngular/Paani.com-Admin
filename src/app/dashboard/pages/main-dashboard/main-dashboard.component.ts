@@ -1,129 +1,105 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart, LinearScale, LineController, LineElement, PointElement, registerables, Title } from 'chart.js';
-
+import * as _ from 'lodash';
+import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 @Component({
   selector: 'app-main-dashboard',
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('1000ms ease-in', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('1000ms ease-in', style({transform: 'translateX(-100%)'}))
+      ])
+    ])
+  ],
+  
   templateUrl: './main-dashboard.component.html',
   styleUrls: ['./main-dashboard.component.css']
 })
 export class MainDashboardComponent implements OnInit {
   [x: string]: any;
+  sliderIndex:number=0;
+  elem:any;
+  allProducts: any ;
+  copyAllProducts:any;
 
-  constructor(private elementRef: ElementRef,private router:Router) { }
+  advertiseMents=[
+
+    {
+      imageSrc:'https://media.istockphoto.com/photos/containers-for-water-of-different-shapes-3d-illustration-picture-id1205272029?k=20&m=1205272029&s=612x612&w=0&h=30b6CTQJAiXgEc1gz3l5EmX-pu5c_5PgwhInO89q5PA=',
+      category: 'Water Containers',
+      desc: 'Up to 50% Off. Use Code JalPani'
+    
+    },
+
+    {
+      imageSrc:'https://5.imimg.com/data5/JX/CN/MY-37425915/750ml-copper-water-bottle-500x500.jpg',
+      category: 'Copper Water Bottles',
+      desc: 'Up to 20% Off. Use Code MyBottle'
+    
+    }
+  ]
+
+  constructor(
+    private spinner: NgxSpinnerService,
+    private webStorage: WebStorageService,
+    private elementRef: ElementRef,private router:Router,private firebaseController: FirebaseControllerService) { }
 
   ngOnInit(): void {
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-    Chart.register(...registerables);
-    this.plotSalesChart();
-    this.plotComplaints();
-    this.plotRevenueChart();
-  }
-  goToProducts():void{
-    this.router.navigate(['products/all-products'])
-  }
-
-  goToComplaints(): void {
-    console.log('hello')
-    this.router.navigate(['complaints/all-complaints'])
-  }
-
-  plotSalesChart(): void {
-    let htmlRef = this.elementRef.nativeElement.querySelector(`#sales`) as HTMLCanvasElement;
-    const ctx = htmlRef.getContext('2d');
-
-    const labels = [
-      'January',
-      'February',
-      'March',
-      'April',
-
-    ];
-
-    const data = {
-      labels: labels,
-      datasets: [{
-        label: 'Net Sales',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [100, 200, 150, 250],
-      }]
-    };
-
-    const config = {
-      type: 'line',
-      data: data,
-      options: {}
-    };
-    const sales = new Chart(ctx as any, config as any);
-
-  }
-
-  plotComplaints(): void {
-    let htmlRef = this.elementRef.nativeElement.querySelector(`#complaints`) as HTMLCanvasElement;
-    const ctx = htmlRef.getContext('2d');
-
-
-    const myChart = new Chart(ctx as any, {
-      type: 'pie',
-      data: {
-        labels: ['Resolved','Unresolved'],
-        datasets: [{
-          label: 'Complaints',
-          data: [12, 19],
-          backgroundColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-           
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
+    this.spinner.show();
+    this.firebaseController.showRecords().subscribe((data) => {
       
-      }
-    });
+      const allProducts = data.docs.map((doc: any) => {
+        return { id: doc.id, ...doc.data() as any }
+      })
+      this.allProducts = allProducts;
+      this.webStorage.set('allProducts',allProducts);
 
+      console.log(this.allProducts)
+      this.copyAllProducts = _.cloneDeep(allProducts);
+      this.spinner.hide();
+     
+    });
   }
-plotRevenueChart(): void {
-  let htmlRef = this.elementRef.nativeElement.querySelector(`#revenue`) as HTMLCanvasElement;
-    const ctx = htmlRef.getContext('2d');
-    const myChart = new Chart(ctx as any, {
-      type: 'bar',
-      data: {
-          labels: ['Jan','Feb','Mar','April'],
-          datasets: [{
-              label: 'Total Revenue (in INR)',
-              data: [50000, 45000, 55000, 76000],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
-  });
-}
+  ngAfterViewInit(): void { this.spinner.show(); }
+  showProduct(product:any): void {
+    this.webStorage.set('selectedProduct',product);
+this.router.navigate(['products/all-products']);
+  }
+
+  changeSlider(change:string):void {
+    console.log('Slider Index',this.sliderIndex)
+    if(change==='inc'){
+    if(this.advertiseMents.length > this.sliderIndex+1){
+      this.sliderIndex+=1
+    }
+    else{
+      console.log(this.sliderIndex)
+      this.sliderIndex =0 ;
+    }
+    }
+    else{
+    if(this.sliderIndex>=1){
+      this.sliderIndex-=1;
+    }
+    else{
+      console.log(this.sliderIndex)
+      this.sliderIndex = this.advertiseMents.length -1;
+    }
+    }
+  }
+ 
+
+
+
+ 
+
+  
+
 }

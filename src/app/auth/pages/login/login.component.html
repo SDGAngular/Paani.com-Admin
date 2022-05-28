@@ -1,44 +1,49 @@
-<body>
-  <div class="center">
-    <h1>Login</h1>
-    <form method="post">
-      <ng-container *ngIf="!loading">
-        <div class="txt_field">
-          <input [(ngModel)]="email" type="text" required name="email">
-          <span></span>
-          <label>Username</label>
+<header style="justify-content: center;"  class="header">
+
+    <a href="home.html" class="logo"> <i class="fas fa-store"></i> Paani.com </a>
+
+    
+
+  
+
+</header>
+
+
+
+
+<div class="main-section">
+<section *ngIf="!register" class="login">
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginWithEmailAndPassword()" action="">
+        <h3>login now</h3>
+        <input formControlName="email" type="email" name="" placeholder="enter your email" id="" class="box">
+        <input formControlName="password" type="password" name="" placeholder="enter your password" id="" class="box">
+        <div class="remember">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me"> remember me </label>
         </div>
-        <div class="txt_field">
-          <input [(ngModel)]="password" type="password" name="password" required>
-          <span></span>
-          <label>Password</label>
-        </div>
-        <div class="pass">Forgot Password?</div>
-
-        <input type="submit" value="Login" (click)="loginWithEmailAndPassword()">
-
-
-
-
-
-      </ng-container>
-      <ng-container *ngIf="loading">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-
-      </ng-container>
-
-      <div class="signup_link">
-        Not a member? <a href="#">Signup</a>
-      </div>
+        <input type="submit" (click)="loginWithEmailAndPassword()" value="login now" class="btn">
+        <p>don't have an account?</p>
+        <a (click)="openRegistration()" class="btn link">register now</a>
     </form>
 
-    <div *ngIf="invalidLogin" class="alert alert-danger" style="text-align:center;" role="alert">
-      Invalid Username or password
-    </div>
+</section>
 
-  </div>
+<section *ngIf="register" class="register">
 
+    <form [formGroup]="registrationForm" action="">
+        <h3>register now</h3>
+        <input formControlName="name"   type="text" name="" placeholder="enter your name" id="" class="box">
+        <input  formControlName="email" type="email" name="" placeholder="enter your email" id="" class="box">
+        <input formControlName="password1" type="password" name="" placeholder="enter your password" id="" class="box">
+        <input formControlName="password2" type="password" name="" placeholder="re-enter your password" id="" class="box">
+        <input type="submit" value="register now" class="btn">
+        <p>already have an account?</p>
+        <a (click)="openLogin()" class="btn link">login now</a>
+    </form>
 
-</body>
+</section>
+
+</div>
+
+<app-footer></app-footer>
