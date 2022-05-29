@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AuthService } from '../../services/auth-service.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   register?:boolean;
   password?: string;
   loginForm = new FormGroup({
-    email: new FormControl('',[Validators.required,Validators.pattern('"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"')]),
+    email: new FormControl('',[Validators.required,Validators.email]),
     password: new FormControl('',[Validators.required,Validators.minLength(5)])
 }); 
 registrationForm = new FormGroup({
@@ -25,24 +26,27 @@ registrationForm = new FormGroup({
 }); 
   loading: boolean = false;
   invalidLogin?: boolean;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,private webStorage:WebStorageService) { }
 
 
   ngOnInit(): void {
   }
 
   loginWithEmailAndPassword(): any {
-    console.log(this.loginForm);
+    
     this.loading = true;
-    this.router.navigate(['dashboard/main-dashboard']);
-    // this.authService.login(this.loginForm.get('email'), this.loginForm.get('password')).then((data: any) => {
+    
+    this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).then((data: any) => {
+     
+      
+      this.webStorage.set('userID',data.user.uid);
+      
+      this.webStorage.set('myCart',[]);
+      this.router.navigate(['dashboard/main-dashboard']);
 
-
-    //   this.router.navigate(['dashboard/main-dashboard']);
-
-    // }, (error: any) => { console.log(error);
-    //   this.invalidLogin = true;
-    //   this.loading = false; })
+    }, (error: any) => { console.log(error.message);
+      this.invalidLogin = true;
+      this.loading = false; })
    
 
   }

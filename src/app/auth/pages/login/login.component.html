@@ -17,7 +17,12 @@
     <form [formGroup]="loginForm" (ngSubmit)="loginWithEmailAndPassword()" action="">
         <h3>login now</h3>
         <input formControlName="email" type="email" name="" placeholder="enter your email" id="" class="box">
+        <label *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors!['required']" style="color:red;font-size:1rem;margin-left:2px">Email is Required</label>
+        <label *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors!['email']" style="color:red;font-size:1rem;margin-left:2px">Not a valid Email</label>
+        <label>{{loginForm.get('email')?.errors | json}}</label>
+        
         <input formControlName="password" type="password" name="" placeholder="enter your password" id="" class="box">
+        <label style="color:red;font-size:1rem;margin-left:2px">Password Needs to be 5 characters Long</label>
         <div class="remember">
             <input type="checkbox" name="" id="remember-me">
             <label for="remember-me"> remember me </label>

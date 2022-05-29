@@ -18,6 +18,10 @@ export class FirebaseControllerService {
    
   }
 
+  public showRecordByID(key:string,id:any):any{
+return this.fireStore.doc(key+'/'+id).get();
+  }
+
   addNewRecord(key:any,record:any){
 return this.fireStore.collection(key).add(record);
   }

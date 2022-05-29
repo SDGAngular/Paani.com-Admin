@@ -1,0 +1,85 @@
+<app-header></app-header>
+<section class="shopping-cart">
+
+    <h1  class="heading">Your <span>products</span></h1>
+
+    <div class="box-container">
+
+        <div *ngFor="let cartProd of myCart" class="box">
+            <i (click)="deleteProduct(cartProd)" class="fas fa-times"></i>
+            <img [src]="cartProd.coverImg" alt="">
+            <div class="content">
+                <h3>{{cartProd.productTitle}}</h3>
+                <form action="">
+                    <span>quantity : </span>
+                    <div class="inc-dec-btn" (click)="changeQty('inc',cartProd)" >+</div>
+                    <div>{{cartProd.qty}}</div>
+                    <div class="inc-dec-btn" (click)="changeQty('dec',cartProd)">-</div>
+                </form>
+                <div class="price">INR {{cartProd.price}}</div>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="myCart.length===0">
+           <div style="display:flex;justify-content:center">
+            <img style="width:100px;height:100px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1653807127/paani.com/water-delivery-man-vector-546745-removebg-preview_nlv5db.png" alt="" srcset="">
+            <h3 class="text-muted">Oops!! your Cart Seems to be <span style="color:rgb(0, 0, 135)">Empty</span></h3>
+            
+        
+        </div>
+        </div>
+
+        <div class="box-container">
+
+    <div  *ngIf="appliedCoupon!=='jalpani'" style="margin-top:10px" (click)="applyCoupon('jalpani')"  class="coupon">
+       
+        
+        <div class="container">
+          <h2><b>20% OFF ON YOUR PURCHASE</b></h2>
+         
+        </div>
+        <div class="container">
+          <p>Use Promo Code: <span class="promo">JALPANI</span></p>
+          <p class="expire">Expires: Jan 03, 2021</p>
+        </div>
+      </div>
+
+
+      <div  *ngIf="appliedCoupon!=='mybottle'" style="margin-top:10px" (click)="applyCoupon('mybottle')" class="coupon">
+       
+        
+        <div class="container">
+          <h2><b>10% OFF ON YOUR PURCHASE</b></h2>
+         
+        </div>
+        <div class="container">
+          <p>Use Promo Code: <span class="promo">MyBottle</span></p>
+          <p class="expire">Expires: Jan 03, 2021</p>
+        </div>
+      </div>
+        </div>
+
+   
+
+        
+
+      
+
+     
+
+       
+    </div>
+
+   
+
+    <div  class="cart-total">
+        <h3> Subtotal :<span>{{'  '}}INR {{totalAmount}}</span> </h3>
+        <h3> Discount :<span>{{'  '}}INR {{discount}}</span> </h3>
+        <h3> You Pay  :<span>{{'  '}}INR {{discountedPrice}}</span> </h3>
+        <a *ngIf="myCart.length>0" href="#" class="btn">Proceed to Checkout</a>
+    </div>
+
+
+</section>
+
+<app-footer></app-footer>

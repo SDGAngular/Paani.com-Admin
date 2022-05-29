@@ -1,6 +1,9 @@
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { HeaderComponent } from 'src/app/core/components/header/header.component';
 import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
-import * as _ from 'lodash';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 @Component({
   selector: 'app-all-products',
@@ -9,8 +12,11 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 
 export class AllProductsComponent implements OnInit {
+  @ViewChild(HeaderComponent)
+private headerComponent?: HeaderComponent; 
   allProducts: any = [];
   featuredProducts: any;
+  selectedID: any;
   selectedProduct: any;
   searchText: any;
   deleteProductId:any =-1;
@@ -22,14 +28,52 @@ export class AllProductsComponent implements OnInit {
     isFeatured: '',
     coverImg: ''
   }
-  constructor(public fireController: FirebaseControllerService,public webstorage: WebStorageService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public router:Router,
+    private spinner: NgxSpinnerService,
+    public fireController: FirebaseControllerService,public webstorage: WebStorageService) { }
 
   ngOnInit(): void {
 
-  this.allProducts = this.webstorage.get('allProducts');
-  this.selectedProduct= this.webstorage.get('selectedProduct')
-  this.setFeatured();
+
+    this.spinner.show();
+  this.activatedRoute.params.subscribe(( params:any) => this.selectedID = params.id );
+  console.log(this.selectedID);
+  
+  this.fireController.showRecords('products').subscribe(
+(data:any)=>{
+  const allProducts = data.docs.map((doc: any) => {
+    return { id: doc.id, ...doc.data() as any }
+  })
+  this.allProducts = allProducts;
+  const myCart = this.webstorage.get('myCart');
+  if(myCart){
+    this.allProducts.forEach((eachProd:any) => {
+      myCart.forEach((eachProdInCart:any) => {
+        if(eachProdInCart.id ===eachProd.id){
+          eachProd.isAdded = true;
+
+          
+        }
+        
+      });
+    });
   }
+ 
+  this.selectedProduct = allProducts.filter((data:any)=>{
+    return data.id === this.selectedID;
+  })[0];
+  
+  this.setFeatured();
+  this.spinner.hide();
+}
+    
+  )
+
+
+    
+    }
 
   setFeatured(): void {
     this.featuredProducts = this.allProducts.filter((eachProd:any)=>{
@@ -39,11 +83,32 @@ export class AllProductsComponent implements OnInit {
 
 
   setSelected(product:any): void {
-this.selectedProduct = product;
-this.setFeatured();
-this.webstorage.set('selectedProduct',product);
+    this.router.navigate(['products/all-products',product.id]);
+    this.ngOnInit();
   }
  
+
+  addToCart(product:any):void {
+    if(!product.isAdded){
+      this.headerComponent!.cartCount+=1;
+      product.isAdded = true;
+      product.qty = 1;
+      console.log(this.headerComponent?.cartCount as any);
+      let myCart = this.webstorage.get('myCart')
+      if(!myCart){
+         myCart = [product];
+       
+      }
+      else{
+        myCart.push(product);
+      }
+      this.webstorage.set('myCart',myCart);
+     
+    }
+    else{
+      
+    }
+  }
 
   
  

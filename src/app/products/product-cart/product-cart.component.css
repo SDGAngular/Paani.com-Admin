@@ -1,0 +1,53 @@
+.inc-dec-btn {
+   
+  height: 20px;
+  line-height: 20px;  
+  width: 20px;  
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: #013d79;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  }
+
+
+  .text-muted{
+    margin-top:10%;
+    font-size: 2rem;
+    color:rgb(175, 180, 184)
+  }
+
+  .text-p{
+    margin-top:10%;
+    font-size: 1rem;
+    color:rgb(0, 103, 187) 
+  }
+
+  .coupon {
+    border: 5px dotted #bbb; /* Dotted border */
+    width: 100%;
+    cursor:pointer;
+    margin-top:10px;
+    background-color: rgba(232, 229, 229, 0.916);
+    margin-bottom: 20px;
+    border-radius: 15px; /* Rounded border */
+    margin: 0 auto; /* Center the coupon */
+    max-width: 400px;
+    max-height:200px;
+  }
+  
+  .container {
+    padding: 2px 16px;
+    background-color: #f1f1f1;
+  }
+  
+  .promo {
+    background: #ccc;
+    padding: 3px;
+  }
+  
+  .expire {
+    color: red;
+  }

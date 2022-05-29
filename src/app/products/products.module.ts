@@ -7,17 +7,21 @@ import { HeaderComponent } from '../core/components/header/header.component';
 import { FooterComponent } from '../core/components/footer/footer.component';
 import { CoreModule } from '../core/core.module';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ProductCartComponent } from './product-cart/product-cart.component';
 
 
 @NgModule({
   declarations: [
     AllProductsComponent,
+    ProductCartComponent,
  
   ],
   imports: [
     CommonModule,
     CoreModule,
     FormsModule,
+    NgxSpinnerModule,
     ProductsRoutingModule,
     
   ]

@@ -70,7 +70,7 @@ export class MainDashboardComponent implements OnInit {
   ngAfterViewInit(): void { this.spinner.show(); }
   showProduct(product:any): void {
     this.webStorage.set('selectedProduct',product);
-this.router.navigate(['products/all-products']);
+this.router.navigate(['products/all-products',product.id]);
   }
 
   changeSlider(change:string):void {

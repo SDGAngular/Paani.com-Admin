@@ -339,6 +339,7 @@ input{
 @media screen and (min-width: 62.5rem){
 
     #color-1:checked ~ .shoe-area .floating-div .shoe-1 {
+      
         transition-delay: 0.2s;
         animation-delay: 0.3s;
         transform: rotateZ(0);
@@ -346,6 +347,7 @@ input{
     }
 
     #color-1:checked ~ .shoe-area .floating-div .shoe-1 img{
+        
         transition-delay: 0.2s;
         opacity: 1;
     }
@@ -409,6 +411,8 @@ input{
 
     .shoe-area{
         width: 100%;
+        margin-top: 70px;
+        margin-left: 90px;
         height: 40vw;
         padding: 1rem 0;
         border-radius: 0.8rem 0.8rem 0 0;

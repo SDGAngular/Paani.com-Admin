@@ -1,6 +1,6 @@
 <section class="quick-links">
 
-  <a href="home.html" class="logo"> <i class="fas fa-store"></i> Paani.com </a>
+  <a style="cursor:pointer" (click)="goToDashboard()" class="logo"> <i class="fas fa-store"></i> Paani.com </a>
 
  
 
@@ -16,7 +16,11 @@
 
   <div class="share">
 
-    <a href="cart.html" class="fas fa-shopping-cart"></a>
+   
+   
+    <i (click)="goToCart()" class="fa" style="font-size:26px;cursor:pointer;color:aliceblue">&#xf07a;</i>
+    <span (click)="goToCart()" class='badge badge-warning' id='lblCartCount'> {{cartCount}} </span>
+ 
     <a href="login.html" class="fas fa-user"></a>
 
     <a id="menu-btn" class="fas fa-bars"></a>

@@ -36,9 +36,9 @@
 
     <h1 class="heading"> Featured <span>Products</span> </h1>
 
-    <div style="margin-top:10px"  *ngFor="let products of allProducts" class="box-container">
-
-        <div *ngIf="products.isFeatured" class="box">
+    <div style="margin-top:10px"  class="box-container">
+<ng-container  *ngFor="let products of allProducts" >
+        <div *ngIf="products.isFeatured"  style="cursor:pointer" (click)="showProduct(products)" class="box">
             <div class="image">
                 <img [src]="products.coverImg" class="main-img" alt="">
                 <img [src]="products.coverImg"class="hover-img" alt="">
@@ -53,7 +53,7 @@
 
 
        
-
+</ng-container>
     </div>
 
 </section>
