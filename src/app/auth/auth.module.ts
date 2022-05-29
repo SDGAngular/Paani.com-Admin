@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
+import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -15,6 +16,7 @@ import { CoreModule } from '../core/core.module';
   imports: [
     CommonModule,
     CoreModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
     AuthRoutingModule,
     FormsModule

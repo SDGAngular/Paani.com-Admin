@@ -2,3 +2,11 @@
     background-image: url('./../../../../assets/images/1090557.jpg');
     height: 100%;
 }
+
+.alert{
+    text-align: center;
+    font-size: 2rem;
+    padding: 10px 10px 10px 10px;
+    color:rgb(0, 9, 60);
+    background-color: rgb(255, 198, 172);
+}

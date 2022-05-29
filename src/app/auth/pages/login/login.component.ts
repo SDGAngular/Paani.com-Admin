@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AuthService } from '../../services/auth-service.service';
 
@@ -26,7 +27,9 @@ registrationForm = new FormGroup({
 }); 
   loading: boolean = false;
   invalidLogin?: boolean;
-  constructor(private authService: AuthService, private router: Router,private webStorage:WebStorageService) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private authService: AuthService, private router: Router,private webStorage:WebStorageService) { }
 
 
   ngOnInit(): void {
@@ -35,17 +38,18 @@ registrationForm = new FormGroup({
   loginWithEmailAndPassword(): any {
     
     this.loading = true;
-    
+    this.spinner.show();
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).then((data: any) => {
      
       
       this.webStorage.set('userID',data.user.uid);
-      
+      this.spinner.hide();
       this.webStorage.set('myCart',[]);
       this.router.navigate(['dashboard/main-dashboard']);
 
     }, (error: any) => { console.log(error.message);
       this.invalidLogin = true;
+      this.spinner.hide();
       this.loading = false; })
    
 
