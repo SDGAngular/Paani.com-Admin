@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="box" *ngIf="myCart.length===0">
+        <div class="box" *ngIf="myCart && myCart?.length===0">
            <div style="display:flex;justify-content:center">
             <img style="width:100px;height:100px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1653807127/paani.com/water-delivery-man-vector-546745-removebg-preview_nlv5db.png" alt="" srcset="">
             <h3 class="text-muted">Oops!! your Cart Seems to be <span style="color:rgb(0, 0, 135)">Empty</span></h3>
@@ -76,10 +76,12 @@
         <h3> Subtotal :<span>{{'  '}}INR {{totalAmount}}</span> </h3>
         <h3> Discount :<span>{{'  '}}INR {{discount}}</span> </h3>
         <h3> You Pay  :<span>{{'  '}}INR {{discountedPrice}}</span> </h3>
-        <a *ngIf="myCart.length>0" href="#" class="btn">Proceed to Checkout</a>
+        <a (click)="placeOrders()" *ngIf="myCart.length>0"  class="btn">Proceed to Checkout</a>
     </div>
 
 
 </section>
 
 <app-footer></app-footer>
+
+<ngx-spinner></ngx-spinner>

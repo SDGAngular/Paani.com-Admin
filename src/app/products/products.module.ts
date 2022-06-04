@@ -9,12 +9,16 @@ import { CoreModule } from '../core/core.module';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ProductCartComponent } from './product-cart/product-cart.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { ProgressBarComponent } from './pages/orders/progress-bar/progress-bar.component';
 
 
 @NgModule({
   declarations: [
     AllProductsComponent,
     ProductCartComponent,
+    OrdersComponent,
+    ProgressBarComponent,
  
   ],
   imports: [

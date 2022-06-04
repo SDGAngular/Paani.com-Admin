@@ -1,15 +1,15 @@
 <section class="quick-links">
 
-  <a style="cursor:pointer" (click)="goToDashboard()" class="logo"> <i class="fas fa-store"></i> Paani.com </a>
+  <a style="cursor:pointer"  class="logo"> <i class="fas fa-store"></i> Paani.com </a>
 
  
 
 
   <div class="links">
-      <a href="home.html"> Home </a>
-      <a href="about.html"> About </a>
-      <a href="products.html"> Products </a>
-      <a href="contact.html"> Orders </a>
+      <a  (click)="goToDashboard()" [ngClass]="url==='/dashboard/main-dashboard'?'highlight-tab':''"> Home </a>
+      <a *ngIf="false" href="about.html"> About </a>
+      <a [ngClass]="url==='all-products'?'highlight-tab':''" (click)="goToProducts()"> Products </a>
+      <a  [ngClass]="url==='/products/orders'?'highlight-tab':''" (click)="goToOrders()"  > Orders </a>
   
       
   </div>

@@ -1,10 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { HeaderComponent } from 'src/app/core/components/header/header.component';
 @Component({
   selector: 'app-main-dashboard',
   animations: [
@@ -23,6 +25,8 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   styleUrls: ['./main-dashboard.component.css']
 })
 export class MainDashboardComponent implements OnInit {
+  @ViewChild(HeaderComponent)
+  private headerComponent?: HeaderComponent; 
   [x: string]: any;
   sliderIndex:number=0;
   elem:any;
@@ -58,6 +62,7 @@ export class MainDashboardComponent implements OnInit {
       const allProducts = data.docs.map((doc: any) => {
         return { id: doc.id, ...doc.data() as any }
       })
+      
       this.allProducts = allProducts;
       this.webStorage.set('allProducts',allProducts);
 
@@ -66,6 +71,28 @@ export class MainDashboardComponent implements OnInit {
       this.spinner.hide();
      
     });
+    this.spinner.show();
+    this.firebaseController.showRecords('users').subscribe((data:any)=>{
+      const allUsers = data.docs.map((doc: any) => {
+        return { id: doc.id, ...doc.data() as any }
+      })
+      const loggedInUser = this.webStorage.get('userID')
+      allUsers.forEach((eachUser:any) => {
+      if(eachUser.userID===loggedInUser){
+        this.webStorage.set('userDetails',eachUser);
+        this.webStorage.set('myCart',eachUser.cart);
+        this.headerComponent!.cartCount = eachUser.cart.length;
+        this.webStorage.set('orders',eachUser.orders);
+        
+
+    
+      }
+      });
+
+      this.spinner.hide();
+    });
+
+
   }
   ngAfterViewInit(): void { this.spinner.show(); }
   showProduct(product:any): void {

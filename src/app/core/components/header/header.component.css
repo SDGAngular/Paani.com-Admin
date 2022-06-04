@@ -18,3 +18,20 @@
       vertical-align: top;
       margin-left: -10px; 
   }
+
+
+  .highlight-tab{
+
+    color: #0040ff;
+
+    background: rgb(255, 255, 255);
+
+    border-radius: 19px;
+    width:100px;
+
+    padding: 10px 10px 10px 10px;
+  }
+
+a{
+  color:white
+}

@@ -480,6 +480,8 @@ section {
 
 .faq .accordion-container .accordion.active .accordioin-content {
   display: block;
+  width:100%;
+  
 }
 
 .faq .accordion-container .accordion .accordion-heading {
@@ -494,7 +496,7 @@ section {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background: #333;
+  background: #000582;;
   cursor: pointer;
 }
 
@@ -1108,7 +1110,7 @@ section {
 .quick-links .links a {
   margin: 0 1rem;
   font-size: 1.7rem;
-  color: #fff;
+
 }
 
 .quick-links .links a:hover {

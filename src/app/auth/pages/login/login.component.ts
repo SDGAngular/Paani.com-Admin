@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AuthService } from '../../services/auth-service.service';
 
@@ -29,6 +30,7 @@ registrationForm = new FormGroup({
   invalidLogin?: boolean;
   constructor(
     private spinner: NgxSpinnerService,
+    private firebaseService: FirebaseControllerService,
     private authService: AuthService, private router: Router,private webStorage:WebStorageService) { }
 
 
@@ -44,13 +46,26 @@ registrationForm = new FormGroup({
       
       this.webStorage.set('userID',data.user.uid);
       this.spinner.hide();
-      this.webStorage.set('myCart',[]);
+      // this.webStorage.set('myCart',[]);
+      // this.firebaseService.addNewRecord('users',{
+      //   userID: data.user.uid,
+      //   cart:[],
+      //   address:"",
+      //   phoneNumber:'',
+      //   orders:[],
+      //   isPremium:true,
+      //   pinCode:'',
+
+      // });
       this.router.navigate(['dashboard/main-dashboard']);
 
     }, (error: any) => { console.log(error.message);
       this.invalidLogin = true;
       this.spinner.hide();
-      this.loading = false; })
+      this.loading = false;
+    
+    
+    })
    
 
   }

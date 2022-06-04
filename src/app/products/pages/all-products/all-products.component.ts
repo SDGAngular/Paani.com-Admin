@@ -93,7 +93,13 @@ private headerComponent?: HeaderComponent;
       this.headerComponent!.cartCount+=1;
       product.isAdded = true;
       product.qty = 1;
+      this.spinner.show();
       console.log(this.headerComponent?.cartCount as any);
+      const userData = this.webstorage.get('userDetails');
+      userData.cart.push(product);
+      this.fireController.updateRecords('users',userData.id,userData).then((data)=>{
+  this.spinner.hide();
+      });
       let myCart = this.webstorage.get('myCart')
       if(!myCart){
          myCart = [product];
@@ -102,12 +108,11 @@ private headerComponent?: HeaderComponent;
       else{
         myCart.push(product);
       }
+
       this.webstorage.set('myCart',myCart);
      
     }
-    else{
-      
-    }
+    
   }
 
   
