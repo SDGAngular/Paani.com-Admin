@@ -11,6 +11,13 @@ export class AuthService {
    }
 
     //login
+
+    register(email:any,password:any):any 
+    {
+
+     return this.authService.createUserWithEmailAndPassword(email,password);
+
+    }
     login(email:any, password: any): any{
     return this.authService.signInWithEmailAndPassword(email,password)
     }

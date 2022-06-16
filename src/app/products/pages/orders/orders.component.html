@@ -69,7 +69,7 @@
 <app-progress-bar *ngIf="innerWidth!>=570" [steps]="orders.steps"></app-progress-bar>   
 
 <div style="display:flex;justify-content: center;">
-  <button style="align-items:center;" class="btn">Ask for Refund</button>
+  <button style="align-items:center;" (click)="initiateRefund(orders.orderID)" class="btn">Ask for Refund</button>
  
   <button style="align-items:center;margin-left:20px;" class="btn">Repeat Orders</button>                   
 </div>

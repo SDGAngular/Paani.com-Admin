@@ -53,7 +53,8 @@ export class MainDashboardComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     private webStorage: WebStorageService,
-    private elementRef: ElementRef,private router:Router,private firebaseController: FirebaseControllerService) { }
+    private elementRef: ElementRef,
+    private router:Router,private firebaseController: FirebaseControllerService) { }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -89,7 +90,7 @@ export class MainDashboardComponent implements OnInit {
       }
       });
 
-      this.spinner.hide();
+      
     });
 
 

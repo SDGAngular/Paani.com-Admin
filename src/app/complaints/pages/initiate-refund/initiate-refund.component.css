@@ -1,0 +1,28 @@
+.coupon {
+    border: 5px dotted rgba(35, 35, 36, 0.39); /* Dotted border */
+    padding:20px 10px 10px 20px;
+    width: 100%;
+    margin-top:10px;
+    background-color: rgb(238, 233, 233);
+    margin-bottom: 20px;
+    border-radius: 20px; /* Rounded border */
+    margin: 0 auto; /* Center the coupon */
+   
+  }
+
+  .selected-prod{
+    background-color: rgb(213 234 255);
+  }
+
+  .error{
+    border: 5px solid red;
+
+  }
+
+  .alert{
+    text-align: center;
+    font-size: 2rem;
+    padding: 10px 10px 10px 10px;
+    color:rgb(0, 9, 60);
+    background-color: rgb(255, 198, 172);
+}

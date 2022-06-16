@@ -7,9 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import { InitiateRefundComponent } from './pages/initiate-refund/initiate-refund.component';
 @NgModule({
   declarations: [
     ComplaintsComponent,
+    InitiateRefundComponent,
   ],
   imports: [
     CommonModule,

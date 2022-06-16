@@ -12,9 +12,12 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService,
     private webStorage: WebStorageService) {}
   cartCount =0;
+  isSideBarOpen=false;
+  userDetails:any;
   url:any;
   ngOnInit(): void {
     const myCart = this.webStorage.get('myCart');
+    this.userDetails =this.webStorage.get('userDetails');
     if(myCart){
       this.cartCount = myCart.length;
     }
@@ -26,6 +29,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  openSideBar():void {
+this.isSideBarOpen = !this.isSideBarOpen;
+  }
   goToOrders(): void {
     this.router.navigate(['/products/orders']);
   }
@@ -42,6 +48,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
+    sessionStorage.clear();
     this.authService.logout().then((data: any) => {
       this.router.navigate([''])
     });

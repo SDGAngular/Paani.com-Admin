@@ -8,7 +8,7 @@
 
 </header>
 <div *ngIf="invalidLogin" class="alert">
-    Invalid Login Credentials
+  {{errorMsg}}
 
 </div>
 
@@ -22,19 +22,19 @@
         
         
         <h3>login now</h3>
-        <input formControlName="email" type="email" name="" placeholder="enter your email" id="" class="box">
+        <input formControlName="email" type="email" name="" placeholder="Your Email Address" id="" class="box">
         <!-- <label *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors!['required']" style="color:red;font-size:1rem;margin-left:2px">Email is Required</label>
         <label *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors!['email']" style="color:red;font-size:1rem;margin-left:2px">Not a valid Email</label> -->
         <!-- <label>{{loginForm.get('email')?.errors | json}}</label> -->
         
-        <input formControlName="password" type="password" name="" placeholder="enter your password" id="" class="box">
+        <input formControlName="password" type="password" name="" placeholder="Your Password" id="" class="box">
         <!-- <label *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors!['required']" style="color:red;font-size:1rem;margin-left:2px" style="color:red;font-size:1rem;margin-left:2px">Password is Required</label> -->
         <div class="remember">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me"> remember me </label>
+            <input  type="checkbox" name="" id="remember-me">
+            <label for="remember-me"> Add Test Credentials </label>
         </div>
         <input type="submit" (click)="loginWithEmailAndPassword()" value="login now" class="btn">
-        <p>don't have an account?</p>
+        <p>Don't have an account?</p>
         <a (click)="openRegistration()" class="btn link">register now</a>
     </form>
 
@@ -44,11 +44,11 @@
 
     <form [formGroup]="registrationForm" action="">
         <h3>register now</h3>
-        <input formControlName="name"   type="text" name="" placeholder="enter your name" id="" class="box">
-        <input  formControlName="email" type="email" name="" placeholder="enter your email" id="" class="box">
-        <input formControlName="password1" type="password" name="" placeholder="enter your password" id="" class="box">
-        <input formControlName="password2" type="password" name="" placeholder="re-enter your password" id="" class="box">
-        <input type="submit" value="register now" class="btn">
+        <input required formControlName="name"   type="text" name="" placeholder="enter your name" id="" class="box">
+        <input required  formControlName="email" type="email" name="" placeholder="enter your email" id="" class="box">
+        <input required formControlName="password1" type="password" name="" placeholder="enter your password" id="" class="box">
+        <input required formControlName="password2" type="password" name="" placeholder="re-enter your password" id="" class="box">
+        <input (click)="registerNewUser()" type="submit" value="register now" class="btn">
         <p>already have an account?</p>
         <a (click)="openLogin()" class="btn link">login now</a>
     </form>

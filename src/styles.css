@@ -429,7 +429,9 @@ section {
 }
 
 .about .image img {
-  width: 100%;
+  width: 70%;
+  height:70%;
+
 }
 
 .about .content {

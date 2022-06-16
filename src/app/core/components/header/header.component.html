@@ -1,6 +1,6 @@
 <section class="quick-links">
 
-  <a style="cursor:pointer"  class="logo"> <i class="fas fa-store"></i> Paani.com </a>
+  <a (click)="goToDashboard()" style="cursor:pointer"  class="logo"> <i class="fas fa-store"></i> Paani.com </a>
 
  
 
@@ -21,12 +21,33 @@
     <i (click)="goToCart()" class="fa" style="font-size:26px;cursor:pointer;color:aliceblue">&#xf07a;</i>
     <span (click)="goToCart()" class='badge badge-warning' id='lblCartCount'> {{cartCount}} </span>
  
-    <a href="login.html" class="fas fa-user"></a>
+    <a (click)="openSideBar()" class="fas fa-user"></a>
 
-    <a id="menu-btn" class="fas fa-bars"></a>
+    <a id="menu-btn" (click)="openSideBar()"  class="fas fa-bars"></a>
 
 
       
   </div>
 
 </section>
+
+
+<div class="side-bar" [ngClass]="isSideBarOpen?'active':''">
+
+  <div id="close-side-bar" (click)="openSideBar()" class="fas fa-times"></div>
+
+  <div class="user">
+      <img [src]="userDetails.profileImg" alt="">
+      <h3>{{userDetails.name}}</h3>
+      <a (click)="logOut()">log out</a>
+  </div>
+
+  <nav class="navbar">
+      <a (click)="goToDashboard()"><i class="fas fa-angle-right"></i> home </a>
+      <a *ngIf="false" href="about.html"> <i class="fas fa-angle-right"></i> about </a>
+      <a (click)="goToProducts()" > <i class="fas fa-angle-right"></i> products </a>
+     
+      <a (click)="goToCart()"> <i class="fas fa-angle-right"></i> cart </a>
+  </nav>
+
+</div>
