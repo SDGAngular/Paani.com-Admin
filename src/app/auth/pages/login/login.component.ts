@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   email?: string;
   register?: boolean;
   password?: string;
+  credAdded?:boolean = false;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -77,6 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   openRegistration(): void {
+
     this.invalidLogin = false;
     this.register = true;
   }
@@ -85,7 +87,20 @@ export class LoginComponent implements OnInit {
     this.invalidLogin = false;
     this.register = false;
   }
-
+  addCred():void {
+    this.credAdded=!this.credAdded;
+    console.log('pcii')
+    if(this.credAdded){
+    this.loginForm.patchValue({
+      'email':'admin@paani.com',
+      'password':'Voidmain1@'
+    });
+    }
+    else{
+      this.loginForm.reset();
+    }
+    
+  }
   registerNewUser(): void {
     const email = this.registrationForm.get('email')?.value;
     const pwd1 = this.registrationForm.get('password1')?.value;

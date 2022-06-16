@@ -19,7 +19,7 @@ export class InitiateRefundComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private webStorage:WebStorageService,
-    private router: Router,
+    public router: Router,
     private firebaseService: FirebaseControllerService) { }
 
   ngOnInit(): void 

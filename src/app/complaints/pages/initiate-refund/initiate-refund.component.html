@@ -43,7 +43,7 @@
 <div style="display:flex;justify-content: center; ">
     <button (click)="submitComplaint()" style="align-items:center;margin-bottom:10px;"  class="btn">Ask for Refund</button>
    
-    <button style="align-items:center;margin-left:20px;margin-bottom:10px;" class="btn">Cancel</button>                   
+    <button (click)="router.navigate(['products/orders'])" style="align-items:center;margin-left:20px;margin-bottom:10px;" class="btn">Cancel</button>                   
   </div>
 
 </div>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="content">
-        <h3>our story</h3>
+        <h3>Our Refund Policy</h3>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam modi ea fuga quibusdam fugiat porro doloremque, quas dignissimos culpa unde. Recusandae maxime aliquam beatae reiciendis, facilis voluptatum eligendi nesciunt ipsa?</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, distinctio et? Odio voluptatum eius reprehenderit saepe quisquam excepturi molestiae architecto.</p>
         <a href="#" class="btn">read more</a>

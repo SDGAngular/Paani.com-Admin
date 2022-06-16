@@ -30,7 +30,7 @@
         <input formControlName="password" type="password" name="" placeholder="Your Password" id="" class="box">
         <!-- <label *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors!['required']" style="color:red;font-size:1rem;margin-left:2px" style="color:red;font-size:1rem;margin-left:2px">Password is Required</label> -->
         <div class="remember">
-            <input  type="checkbox" name="" id="remember-me">
+            <input (click)="addCred()"  type="checkbox" name="" id="remember-me">
             <label for="remember-me"> Add Test Credentials </label>
         </div>
         <input type="submit" (click)="loginWithEmailAndPassword()" value="login now" class="btn">

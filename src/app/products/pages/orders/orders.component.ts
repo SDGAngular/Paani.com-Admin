@@ -1,7 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { each } from 'lodash';
+import { HeaderComponent } from 'src/app/core/components/header/header.component';
+import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
@@ -15,12 +17,16 @@ export class OrdersComponent implements OnInit {
   cloneOrders: any;
   innerWidth?: number;
   @HostListener('window:resize', ['$event'])
+  @ViewChild(HeaderComponent)
+  private headerComponent?: HeaderComponent; 
   onResize(event: any) {
     this.innerWidth = window.innerWidth;
 
     console.log(this.innerWidth);
   }
-  constructor(private router: Router, private webstorage: WebStorageService) {}
+  constructor(private router: Router,
+    private fireController: FirebaseControllerService,
+    private webstorage: WebStorageService) {}
 
   ngOnInit(): void {
     this.allOrders = this.webstorage.get('orders');
@@ -45,7 +51,58 @@ export class OrdersComponent implements OnInit {
   goToProduct(product: any): void {
     this.router.navigate(['products/all-products', product.id]);
   }
+  repeatOrders(order:any):void {
+    order.products.forEach((eachProduct:any)=>{
+      this.addToCart(eachProduct);
+    })
+  }
 
+  addToCart(product:any):void {
+    
+      
+      product.isAdded = true;
+      // this.spinner.show();
+   
+      const userData = this.webstorage.get('userDetails');
+      
+      
+      let myCart = this.webstorage.get('myCart')
+      if(!myCart){
+         myCart = [product];
+       
+      }
+      else{
+        var count =0;
+        var selectedIndex=0
+        myCart.forEach((eachProd:any,index:any)=>{
+          if(eachProd.id===product.id){
+            count+=1;
+            selectedIndex=index;
+
+          }
+        });
+        if(count===1){
+          if(myCart[selectedIndex].qty+(product.qty)<=5){
+            myCart[selectedIndex].qty+=(product.qty);
+          }else{
+            alert('cannot add more than 5 units');
+          }
+        }
+        else{
+          myCart.push(product);
+          this.headerComponent!.cartCount+=1;
+        }
+     
+      }
+      userData.cart= myCart;
+      this.fireController.updateRecords('users',userData.id,userData).then((data)=>{
+        // this.spinner.hide();
+            });
+      this.webstorage.set('myCart',myCart);
+     
+    
+    
+  }
   initiateRefund(orderId: any): void {
     console.log(orderId);
     this.router.navigate(['complaints/initiate-refund/' + orderId]);

@@ -16,20 +16,24 @@ export class ProductCartComponent implements OnInit {
   @ViewChild(HeaderComponent)
   private headerComponent?: HeaderComponent;
 
-  constructor(private router:Router,private webStorage: WebStorageService,private firebaseService: FirebaseControllerService,
-    private spinner: NgxSpinnerService) {}
+  constructor(
+    private router: Router,
+    private webStorage: WebStorageService,
+    private firebaseService: FirebaseControllerService,
+    private spinner: NgxSpinnerService
+  ) {}
   myCart: any;
   totalAmount = 0;
-  loggedInUser:any;
+  loggedInUser: any;
   appliedCoupon: any;
-  discPercentage: number=0;
+  discPercentage: number = 0;
   discount = 0;
   discountedPrice = 0;
   ngOnInit(): void {
-  this.loggedInUser = this.webStorage.get('userDetails');
-  
-  this.myCart = this.webStorage.get('myCart');
-  this.setTotalAmount();
+    this.loggedInUser = this.webStorage.get('userDetails');
+
+    this.myCart = this.webStorage.get('myCart');
+    this.setTotalAmount();
     // this.firebaseService.showRecords('users').subscribe((data)=>{
     //   const allUsers = data.docs.map((doc: any) => {
     //     return { id: doc.id, ...doc.data() as any }
@@ -37,19 +41,21 @@ export class ProductCartComponent implements OnInit {
     //   allUsers.forEach((eachUser:any)=>{
     //     if(eachUser.id===this.loggedInUser.id){
     //       // this.myCart=eachUser.cart;
-          
+
     //       this.spinner.hide();
     //     }
     //   })
 
     // })
-  
   }
 
-  saveProductData(record:any):Promise<void> {
-
-    this.webStorage.set('myCart',this.myCart)
-    return this.firebaseService.updateRecords('users',this.loggedInUser.id,record);
+  saveProductData(record: any): Promise<void> {
+    this.webStorage.set('myCart', this.myCart);
+    return this.firebaseService.updateRecords(
+      'users',
+      this.loggedInUser.id,
+      record
+    );
   }
 
   changeQty(change: any, prod: any): void {
@@ -57,7 +63,7 @@ export class ProductCartComponent implements OnInit {
       prod.qty += 1;
       this.setTotalAmount();
       this.loggedInUser.cart = this.myCart;
-      
+
       this.saveProductData(this.loggedInUser);
     } else if (change === 'dec') {
       if (prod.qty > 1) {
@@ -78,27 +84,24 @@ export class ProductCartComponent implements OnInit {
     this.headerComponent!.cartCount -= 1;
     this.saveProductData(this.loggedInUser);
     this.setTotalAmount();
-    if(this.myCart.length ===0){
-      this.appliedCoupon ='';
+    if (this.myCart.length === 0) {
+      this.appliedCoupon = '';
     }
   }
 
   applyCoupon(couponCode: any): void {
-
-    if(this.myCart.length!==0){
+    if (this.myCart.length !== 0) {
       this.appliedCoupon = couponCode;
-      if (couponCode === 'mybottle' ) {
+      if (couponCode === 'mybottle') {
         this.discPercentage = 10;
-       
-  
+
         this.setTotalAmount();
       }
-      if (couponCode === 'jalpani' ) {
+      if (couponCode === 'jalpani') {
         this.discPercentage = 20;
         this.setTotalAmount();
       }
     }
-   
   }
 
   setTotalAmount(): void {
@@ -109,58 +112,58 @@ export class ProductCartComponent implements OnInit {
     this.discount = this.totalAmount * (this.discPercentage / 100);
     this.discountedPrice = this.totalAmount - this.discount;
   }
-   generateUUID() { // Public Domain/MIT
-    var d = new Date().getTime();//Timestamp
-    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16;//random number between 0 and 16
-        if(d > 0){//Use timestamp until depleted
-            r = (d + r)%16 | 0;
-            d = Math.floor(d/16);
-        } else {//Use microseconds since page-load if supported
-            r = (d2 + r)%16 | 0;
-            d2 = Math.floor(d2/16);
+  generateUUID() {
+    // Public Domain/MIT
+    var d = new Date().getTime(); //Timestamp
+    var d2 =
+      (typeof performance !== 'undefined' &&
+        performance.now &&
+        performance.now() * 1000) ||
+      0; //Time in microseconds since page-load or 0 if unsupported
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        var r = Math.random() * 16; //random number between 0 and 16
+        if (d > 0) {
+          //Use timestamp until depleted
+          r = (d + r) % 16 | 0;
+          d = Math.floor(d / 16);
+        } else {
+          //Use microseconds since page-load if supported
+          r = (d2 + r) % 16 | 0;
+          d2 = Math.floor(d2 / 16);
         }
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-}
-
+        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      }
+    );
+  }
 
   placeOrders(): void {
-  this.spinner.show();
-    let order ={
-      mode:'UPI',
-      orderCost:this.totalAmount,
-      partner:'jal pvt ltd',
+    this.spinner.show();
+    let order = {
+      mode: 'UPI',
+      orderCost: this.totalAmount,
+      partner: 'jal pvt ltd',
       orderID: this.generateUUID(),
       products: this.myCart,
-      status:'pending',
-  }
- 
+      status: 'pending',
+    };
 
-  if(this.loggedInUser.orders)
-  {
-    this.loggedInUser.orders.shift(order);
-  }
-  else{
-    this.loggedInUser.orders = [order]
-  }
+    if (this.loggedInUser.orders) {
+      this.loggedInUser.orders.unshift(order);
+    } else {
+      this.loggedInUser.orders = [order];
+    }
 
-  
-
-  this.webStorage.set('orders',this.loggedInUser.orders);
-  this.saveProductData(this.loggedInUser).then((data)=>{
-    this.myCart =[];
-  this.headerComponent!.cartCount =0;
-  this.setTotalAmount();
-  this.loggedInUser.cart =[];
-  this.webStorage.set('myCart',[])
-    this.spinner.hide();
-    this.router.navigate(['products/orders']);
-  });
-
-
-        
-    
+    this.webStorage.set('orders', this.loggedInUser.orders);
+    this.saveProductData(this.loggedInUser).then((data) => {
+      this.myCart = [];
+      this.headerComponent!.cartCount = 0;
+      this.setTotalAmount();
+      this.loggedInUser.cart = [];
+      this.webStorage.set('myCart', []);
+      this.spinner.hide();
+      this.router.navigate(['products/orders']);
+    });
   }
 }
