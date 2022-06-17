@@ -1,11 +1,16 @@
-<section class="quick-links">
 
-  <a (click)="goToDashboard()" style="cursor:pointer"  class="logo"> <img width="40px" height="40px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1655400003/paani.com/images-removebg-preview_h03kgd.png" alt="" srcset=""> Paani.com </a>
+
+<section class="quick-links  " [ngClass]="hideCart&&hideNav?'centre':''">
+
+<div class="" style="display:flex;justify-content:center">
+  <a  style="display: flex;
+  align-items: center;cursor:pointer" (click)="goToDashboard()"   class="logo"> <img width="40px" height="40px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1655400003/paani.com/images-removebg-preview_h03kgd.png" alt="" srcset=""> Paani.com </a>
+</div>
 
  
 
 
-  <div class="links">
+  <div *ngIf="!hideNav" class="links">
       <a  (click)="goToDashboard()" [ngClass]="url==='/dashboard/main-dashboard'?'highlight-tab':''"> Home </a>
       <a *ngIf="false" href="about.html"> About </a>
       <a [ngClass]="url==='all-products'?'highlight-tab':''" (click)="goToProducts()"> Products </a>
@@ -14,7 +19,7 @@
       
   </div>
 
-  <div class="share">
+  <div *ngIf="!hideCart" class="share">
 
    
    
@@ -32,13 +37,15 @@
 </section>
 
 
+
+
 <div class="side-bar" [ngClass]="isSideBarOpen?'active':''">
 
   <div id="close-side-bar" (click)="openSideBar()" class="fas fa-times"></div>
 
-  <div class="user">
-      <img [src]="userDetails.profileImg" alt="">
-      <h3>{{userDetails.name}}</h3>
+  <div   class="user">
+      <img *ngIf="userDetails"  [src]="userDetails.profileImg" alt="">
+      <h3 *ngIf="userDetails" >{{userDetails.name}}</h3>
       <a (click)="logOut()">log out</a>
   </div>
 

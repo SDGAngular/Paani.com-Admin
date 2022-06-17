@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -13,9 +15,12 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SpinnerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    MatProgressBarModule
   ],
   exports:[
+    HttpClientModule,
     HeaderComponent,
     FooterComponent,
     SpinnerComponent

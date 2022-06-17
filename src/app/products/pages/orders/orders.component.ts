@@ -113,12 +113,22 @@ export class OrdersComponent implements OnInit {
         eachOrder.isExpanded = true;
         return eachOrder.status === 'pending';
       });
-    } else if (this.searchText.indexOf('delivered') > -1) {
+    } 
+    else if (this.searchText.indexOf('delivered') > -1) {
       this.allOrders = this.cloneOrders.filter((eachOrder: any) => {
         eachOrder.isExpanded = true;
         return eachOrder.status === 'delivered';
       });
-    } else if (this.searchText === '') {
+    }
+    else if (this.searchText.indexOf('Refund') > -1) {
+      this.allOrders = this.cloneOrders.filter((eachOrder: any) => {
+        eachOrder.isExpanded = true;
+        return eachOrder.status.includes('Refund') ;
+      });
+    
+    
+    }
+    else if (this.searchText === '') {
       this.allOrders = this.cloneOrders;
       this.allOrders.forEach((eachOrder: any) => {
         eachOrder.isExpanded = false;
@@ -127,8 +137,10 @@ export class OrdersComponent implements OnInit {
     } else {
       this.allOrders = this.cloneOrders.filter((eachOrder: any) => {
         eachOrder.isExpanded = true;
+        
         return eachOrder.orderID.indexOf(this.searchText) > -1;
       });
+     
     }
   }
 

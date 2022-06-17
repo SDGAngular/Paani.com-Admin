@@ -39,12 +39,16 @@
                     <div  *ngFor="let products of orders.products"  style="margin-top:10px;cursor: pointer;"  class="coupon">
        
         
-                        <div (click)="goToProduct(products)" class="container">
+                        <div  (click)="goToProduct(products)" class="container">
+                          
+                          <h2 style="color:rgba(135, 119, 119, 0.518)" *ngIf="products.isRefundedInitiated&&!products.isRefunded"><b>Refund Initiated</b> </h2>
+       
+                            <h2 style="color:rgba(135, 119, 119, 0.518)" *ngIf="products.isRefunded"><b>Refunded</b> </h2>
                             
-                          <h2><b>{{products.productTitle}}</b>
+                          <h2><b>{{products.productTitle}}</b>  </h2>
                         
                            
-                        </h2>
+                      
                           
                          
                         </div>
@@ -69,7 +73,7 @@
 <app-progress-bar *ngIf="innerWidth!>=570" [steps]="orders.steps"></app-progress-bar>   
 
 <div style="display:flex;justify-content: center;">
-  <button style="align-items:center;" (click)="initiateRefund(orders.orderID)" class="btn">Ask for Refund</button>
+  <button style="align-items:center;" *ngIf="!orders.isRefunded" (click)="initiateRefund(orders.orderID)" class="btn">Ask for Refund</button>
  
   <button style="align-items:center;margin-left:20px;" (click)="repeatOrders(orders)" class="btn">Repeat Orders</button>                   
 </div>

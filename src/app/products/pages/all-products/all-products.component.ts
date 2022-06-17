@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { HeaderComponent } from 'src/app/core/components/header/header.component';
 import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { LoaderService } from 'src/app/dashboard/services/loader.service';
 @Component({
   selector: 'app-all-products',
   templateUrl: './all-products.component.html',
@@ -31,21 +32,24 @@ private headerComponent?: HeaderComponent;
   constructor(
     private activatedRoute: ActivatedRoute,
     public router:Router,
+    private loader: LoaderService,
     private spinner: NgxSpinnerService,
     public fireController: FirebaseControllerService,public webstorage: WebStorageService) { }
 
   ngOnInit(): void {
 
 
-    this.spinner.show();
+    this.loader.isLoading.next(true);
   this.activatedRoute.params.subscribe(( params:any) => this.selectedID = params.id );
   console.log(this.selectedID);
   
   this.fireController.showRecords('products').subscribe(
 (data:any)=>{
   const allProducts = data.docs.map((doc: any) => {
+    this.loader.isLoading.next(false);
     return { id: doc.id, ...doc.data() as any }
-  })
+
+  });
   this.allProducts = allProducts;
   const myCart = this.webstorage.get('myCart');
   if(myCart){

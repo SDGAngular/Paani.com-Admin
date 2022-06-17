@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -16,6 +17,7 @@ import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
   imports: [
     CommonModule,
     CoreModule,
+    MatProgressBarModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
     AuthRoutingModule,

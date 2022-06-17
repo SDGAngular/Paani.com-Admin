@@ -35,3 +35,8 @@
 a{
   color:white
 }
+
+.centre{
+ flex-flow:column;
+ align-items:center;
+}

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { LoaderService } from 'src/app/dashboard/services/loader.service';
 import { AuthService } from '../../services/auth-service.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
     private firebaseService: FirebaseControllerService,
     private authService: AuthService,
     private router: Router,
+    public loader: LoaderService,
     private webStorage: WebStorageService
   ) {}
 
@@ -53,7 +55,8 @@ export class LoginComponent implements OnInit {
 
   loginWithEmailAndPassword(): any {
     this.loading = true;
-    this.spinner.show();
+
+    this.loader.isLoading.next(true);
     this.authService
       .login(
         this.loginForm.get('email')?.value,
@@ -66,6 +69,9 @@ export class LoginComponent implements OnInit {
           // this.webStorage.set('myCart',[]);
 
           this.router.navigate(['dashboard/main-dashboard']);
+          setTimeout(()=>{
+            this.loader.isLoading.next(false);
+          },4000);
         },
         (error: any) => {
           console.log(error.message);
@@ -73,6 +79,7 @@ export class LoginComponent implements OnInit {
           this.errorMsg = 'Invalid Login Credentials';
           this.spinner.hide();
           this.loading = false;
+          this.loader.isLoading.next(false);
         }
       );
   }
