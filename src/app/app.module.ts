@@ -11,9 +11,11 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorComponentComponent } from './error-component/error-component.component';
 @NgModule({
   declarations: [
     AppComponent,
+    ErrorComponentComponent,
     
   ],
   imports: [

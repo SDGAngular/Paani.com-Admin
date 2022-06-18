@@ -9,6 +9,7 @@ import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.co
 @NgModule({
   declarations: [
     MainDashboardComponent,
+    
   ],
   imports: [
     CommonModule,
