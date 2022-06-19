@@ -1,0 +1,124 @@
+<main >
+    <div class="head-title">
+      <div class="left">
+        <h1>Analytics</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a >Dashboard</a>
+          </li>
+          <li><i class='bx bx-chevron-right' ></i></li>
+          <li>
+            <a class="active" >Analytics</a>
+          </li>
+        </ul>
+      </div>
+     
+    </div>
+
+    <ul class="box-info">
+      <li style="display:block;text-align:center">
+       <h3 >Sales</h3>
+        <canvas id="sales" width="30" height="32">
+
+        </canvas>
+      </li>
+      <li style="display:block;text-align:center">
+        <h3>Complaints</h3>
+        <canvas id="complaints" width="40" height="45">
+
+        </canvas>
+      </li >
+      <li style="display:block;text-align:center">
+        <h3>Net Revenue</h3>
+        <canvas id="revenue" width="40" height="40">
+
+        </canvas>
+      </li>
+    </ul>
+
+
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Registered Partners</h3>
+          <i class='bx bx-search' ></i>
+          <i class='bx bx-filter' ></i>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Revenue</th>
+              <th>Settled Orders</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="cursor:pointer" (click)="showPartner=true;selectedPartner=partners" *ngFor="let partners of allPartners">
+              <td>
+                <img [src]="partners.logo">
+                <p>{{partners.partnerName}}</p>
+              </td>
+              <td>{{partners.generatedRevenue}}</td>
+              <td>{{partners.amountSettled}}</td>
+              <td>
+                
+                <span *ngIf="partners.isActive" class="status completed">Active</span>
+                               
+                <span *ngIf="!partners.isActive" class="status pending">Dormant</span>
+              
+              </td>
+            </tr>
+            <tr *ngIf="allPartners.length===0">
+              <p style="margin-top: 10px; margin-left:40% text-align:center">No Records Found</p>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="showPartner" class="todo">
+        <div class="head">
+          <h3>Showing Details
+          </h3>
+          <i (click)="showPartner=false" class='bx bx-x'></i>
+        </div>
+        <ul class="todo-list">
+          <li style="cursor:pointer;display: block" >
+            <img [src]="selectedPartner.logo" width="50px" height="50px" alt="" srcset="">
+            <p><strong>{{selectedPartner.partnerName}}</strong></p>
+            <p style="font-size:10px;color:rgb(143, 137, 137)">
+              <i style="font-size:10px;" class='bx bx-location-plus' ></i>Kolkata,India</p>
+            <p> <br>{{selectedPartner.notificationDesc}}</p>
+            <label for="">Settlement Rate</label>
+            <mat-progress-bar style="margin-top:10px;margin-bottom:10px"  mode="determinate" [color]="'primary'" [value]="selectedPartner.amountSettled*100/selectedPartner.generatedRevenue"></mat-progress-bar>
+
+            <label for="">Customer Reviews</label>
+            <mat-progress-bar style="margin-top:10px;margin-bottom:10px"  mode="determinate" [color]="'primary'" [value]="selectedPartner.customerReview"></mat-progress-bar>
+          </li>
+         
+      
+         
+          
+        </ul>
+      </div>
+      <div class="todo">
+        <div class="head">
+          <h3>Notifications
+
+            <i style="color:rgb(239, 26, 61);font-size:20px" class='bx bxs-bell-ring' ></i>
+          </h3>
+
+        </div>
+        <ul class="todo-list">
+          <li style="cursor:pointer;display: block" (click)="notification.isExpanded=!notification.isExpanded" *ngFor="let notification of notifications" [ngClass]="notification.isDanger?'completed':'not-completed'">
+            <p><strong>{{notification.title}}</strong></p>
+            <p *ngIf="notification.isExpanded"> <br>{{notification.notificationDesc}}</p>
+            
+          </li>
+         
+      
+         
+          
+        </ul>
+      </div>
+    </div>
+  </main>

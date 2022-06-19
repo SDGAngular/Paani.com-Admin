@@ -1,0 +1,10 @@
+.loader-container{
+ 
+    width:100%;
+    z-index:3000;
+    position: fixed;
+    height:400%;
+    position:absolute;
+    background-color: rgba(9, 9, 9, 0.8);
+   
+  }

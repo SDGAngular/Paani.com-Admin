@@ -1,0 +1,41 @@
+[
+    {
+        "partnerID":"UIIYU778777",
+        "partnerName":"Jal Pvt Ltd",
+        "generatedRevenue":90000,
+        "amountSettled":89000,
+        "isActive":true,
+        "customerReview":50,
+        "logo":"https://res.cloudinary.com/duumuebzt/image/upload/v1655628094/paani.com/download_colnrz.png"
+
+    },
+    {
+        "partnerID":"UII78YT78777",
+        "partnerName":"Neero Waters Ltd",
+        "generatedRevenue":788800,
+        "logo":"https://res.cloudinary.com/duumuebzt/image/upload/v1655628094/paani.com/download_colnrz.png",
+        "amountSettled":20000,
+        "customerReview":70,
+        "isActive":true  
+    },
+    {
+        "partnerID":"UII7787T78777",
+        "partnerName":"Peeni Waters Ltd",
+        "generatedRevenue":798800,
+        "amountSettled":202200,
+        "isActive":true,
+        "customerReview":80,
+        "logo":"https://res.cloudinary.com/duumuebzt/image/upload/v1655628094/paani.com/download_colnrz.png"
+    },
+    {
+        "partnerID":"UII7787T78777",
+        "partnerName":"Autumn Waters Ltd",
+        "generatedRevenue":798800,
+        "amountSettled":202200,
+        "isActive":false,
+        "customerReview":90,
+        "logo":"https://res.cloudinary.com/duumuebzt/image/upload/v1655628094/paani.com/download_colnrz.png"
+
+    }
+
+]

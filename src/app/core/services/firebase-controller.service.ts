@@ -22,9 +22,9 @@ export class FirebaseControllerService {
 return this.fireStore.collection(key).add(record);
   }
 
-  updateRecords(key:string, recordid: any, record: any)
+  updateRecords(key:string, recordid: any, record: any):any
   {
-    this.fireStore.doc(key+'/' + recordid).update(record);
+    return this.fireStore.doc(key+'/' + recordid).update(record);
   }
 
   delete_record(key:any,record_id:any): any

@@ -1,0 +1,23 @@
+[
+
+    {
+        "title":"More than 120 unresolved complaints",
+        "isExapnded":false,
+        "isdanger":true,
+        "notificationDesc":"More than 120 complaints deserve your immediate admin attention. Go to the Complaints Tab to address the latest complaints"
+
+    },
+    {
+        "title":"Congrats! You have met your targets",
+        "isExapnded":false,
+        "isdanger":false,
+        "notificationDesc":"You have successfully met your targets in terms of Sales and Revenue Growth. Hope to see you perform better next quarter "
+    },
+    {
+        "title":"Your Password expires in 3 days ",
+        "isExapnded":false,
+        "isdanger":true,
+        "notificationDesc":"Your admin password expires in 3 days. Please change it immediately to avoid Non compliance and retain your admin priviledges. Go to settings to change the password as per password policies. "
+
+    }
+]

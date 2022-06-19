@@ -1,208 +1,99 @@
-<app-header></app-header>
 
-<div class="row">
-    <div class="col-md-3" style="margin-top:120px" >
-        <div class="card" style="margin-left:10px">
-            <div class="card-header">
-              Net Sales
-            </div>
-            <div class="card-body">
-     
-                <canvas id="sales" width="40" height="42">
+<section [class]="showSideBar?'':'hide'" id="sidebar">
+  <a href="#" class="brand">
+  <div >
+    <img width="20px" height="20px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1655400003/paani.com/images-removebg-preview_h03kgd.png" style="margin-left:10px" alt="" srcset="">
+    <span *ngIf="showSideBar" style="margin-left:10px">PAANI.<strong>COM</strong></span></div>
+  </a>
+  <ul class="side-menu top">
+    <li [ngClass]="appliedTab==='dashboard'?'active':''">
+      <a (click)="setTab('dashboard')">
+        <i class='bx bxs-dashboard' ></i>
+        <span class="text">Dashboard</span>
+      </a>
+    </li>
+    <li [ngClass]="appliedTab==='products'?'active':''" >
+      <a (click)="setTab('products')">
+        <i class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">My Store</span>
+      </a>
+    </li>
+    <li [ngClass]="appliedTab==='analytics'?'active':''">
+      <a (click)="setTab('analytics')" >
+        <i class='bx bxs-doughnut-chart' ></i>
+        <span class="text">Analytics</span>
+      </a>
+    </li>
+    <li [ngClass]="appliedTab==='orders'?'active':''" >
+      <a (click)="setTab('orders')">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Orders</span>
+      </a>
+    </li>
+    <li [ngClass]="appliedTab==='complaints'?'active':''">
+      <a (click)="setTab('complaints')">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Complaints</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li >
+      <a href="#">
+        <i class='bx bxs-cog' ></i>
+        <span class="text">Settings</span>
+      </a>
+    </li>
+    <li >
+      <a href="#" class="logout">
+        <i class='bx bxs-log-out-circle' ></i>
+        <span class="text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
 
-                </canvas>
-     
-            </div>
-          </div>
-    </div>
-    <div class="col-md-3"   style="margin-top:120px" >
-        <div class="card">
-            <div class="card-header">
-              Total Complaints
-            </div>
-            <div class="card-body" >
-              <div>
-                    <canvas id="complaints" width="40" height="45">
 
-                </canvas>
-              </div>
-            </div>
-          </div>
-    </div>
 
-    <div class="col-md-3"  style="margin-top:120px">
-        <div class="card">
-            <div class="card-header">
-              Revenue Growth
-            </div>
-            <div class="card-body">
-                <canvas id="revenue" width="40" height="40">
-
-                </canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="col-md-3"  style="margin-top:120px">
-        <img src="../../../../assets/images/dashboard-keyj.pg.jpg" width="350px" height="350px" style="opacity:0.8" alt="" srcset="">
-    </div>
-</div>
-
-<div class="row" style="margin-top:20px">
-
-    <div (click)="goToProducts()" class="col-md-4">
-       
-                
-                    <div style="cursor:pointer" class="alert alert-primary" role="alert">
-                    
-  
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-node-plus-fill" viewBox="0 0 16 16">
-                            <path d="M11 13a5 5 0 1 0-4.975-5.5H4A1.5 1.5 0 0 0 2.5 6h-1A1.5 1.5 0 0 0 0 7.5v1A1.5 1.5 0 0 0 1.5 10h1A1.5 1.5 0 0 0 4 8.5h2.025A5 5 0 0 0 11 13zm.5-7.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2a.5.5 0 0 1 1 0z"/>
-                          </svg>
-                          <p>Add or Edit Products</p>
-                    
-                    </div>
-                 
-
-                  
-                
-               
-             
-              
-              
-           
-    </div>
-
-    <div class="col-md-4">
-        <div (click)="goToComplaints()" style="cursor:pointer" class="alert alert-danger" role="alert">
-                    
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-radioactive" viewBox="0 0 16 16">
-                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z"/>
-                <path d="M9.653 5.496A2.986 2.986 0 0 0 8 5c-.61 0-1.179.183-1.653.496L4.694 2.992A5.972 5.972 0 0 1 8 2c1.222 0 2.358.365 3.306.992L9.653 5.496Zm1.342 2.324a2.986 2.986 0 0 1-.884 2.312 3.01 3.01 0 0 1-.769.552l1.342 2.683c.57-.286 1.09-.66 1.538-1.103a5.986 5.986 0 0 0 1.767-4.624l-2.994.18Zm-5.679 5.548 1.342-2.684A3 3 0 0 1 5.005 7.82l-2.994-.18a6 6 0 0 0 3.306 5.728ZM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
-              </svg>
-              <p>Address Complaints</p>
-        
-        </div>
-    </div>
-
-    <div style="cursor:pointer" class="col-md-4">
-        <div class="alert alert-success" role="alert">
-                  
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-hdd-stack" viewBox="0 0 16 16">
-                <path d="M14 10a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h12zM2 9a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z"/>
-                <path d="M5 11.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM14 3a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
-                <path d="M5 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-              </svg>
-
-              <p>Manage Orders</p>
-
-          
-          </div>
-    </div>
-
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav>
+    <i class='bx bx-menu' (click)="hideSideBar()" ></i>
+    <a href="#" class="nav-link">Categories</a>
+    <form action="#">
+      <div class="form-input">
+        <input type="text" name="search" [(ngModel)]="searchedText" (change)="searchText()" placeholder="Search with Product or Order or Complaints">
+        <button type="submit"  class="search-btn"><i class='bx bx-search' ></i></button>
+      </div>
+    </form>
+    <input type="checkbox" (change)="toggleDark()" id="switch-mode" hidden>
     
+    <label for="switch-mode" class="switch-mode"></label>
+    <a class="notification">
+    <i *ngIf="this.dark" class='bx bxs-moon' ></i>
+    <i  *ngIf="!this.dark" class='bx bxs-sun' ></i>
+  </a>
+    <a  class="notification">
+      <i class='bx bxs-bell' ></i>
+      <span class="num">8</span>
+    </a>
+    <a  class="notification">
+      <i class='bx bxs-user' ></i>
+     
+    </a>
+  </nav>
+  <!-- NAVBAR -->
 
-  
-
-</div>
-
-<div class="accordion" id="accordionExample">
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" style="text-align:center" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-         Engaged Partners
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <table class="table table-hover">
-                  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-              </table>
-
-          </div>
-        </div>
-      </div>
-</div>
-
-
-<div class="accordion" id="accordionExample">
-
-    <div class="accordion-item">
-        <h2 style="text-align:center"  class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-         Top Partners
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <table class="table table-hover">
-                  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-              </table>
-
-          </div>
-        </div>
-      </div>
-</div>
-
-
- <!-- Site footer -->
-<app-footer></app-footer>
-
-
-
-
+  <!-- MAIN -->
+ <app-dashboard *ngIf="appliedTab==='dashboard'"></app-dashboard>
+ <app-store *ngIf="appliedTab==='products'"></app-store>
+ <app-analytics *ngIf="appliedTab==='analytics'"></app-analytics>
+ <app-orders *ngIf="appliedTab==='orders'"></app-orders>
+<app-complaints *ngIf="appliedTab==='complaints'"></app-complaints>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
 
 

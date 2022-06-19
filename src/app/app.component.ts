@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoaderService } from './dashboard/services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(public loader: LoaderService){}
   title = 'paani-admin';
 }
