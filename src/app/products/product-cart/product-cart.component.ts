@@ -113,7 +113,6 @@ export class ProductCartComponent implements OnInit {
     this.discountedPrice = this.totalAmount - this.discount;
   }
   generateUUID() {
-    // Public Domain/MIT
     var d = new Date().getTime(); //Timestamp
     var d2 =
       (typeof performance !== 'undefined' &&
