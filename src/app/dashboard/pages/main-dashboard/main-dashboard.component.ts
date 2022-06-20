@@ -39,6 +39,7 @@ export class MainDashboardComponent implements OnInit {
         'https://media.istockphoto.com/photos/containers-for-water-of-different-shapes-3d-illustration-picture-id1205272029?k=20&m=1205272029&s=612x612&w=0&h=30b6CTQJAiXgEc1gz3l5EmX-pu5c_5PgwhInO89q5PA=',
       category: 'Water Containers',
       desc: 'Up to 50% Off. Use Code JalPani',
+      url:'products/all-products/eNTRFdyxKinhq7t6hH7g'
     },
 
     {
@@ -46,6 +47,7 @@ export class MainDashboardComponent implements OnInit {
         'https://5.imimg.com/data5/JX/CN/MY-37425915/750ml-copper-water-bottle-500x500.jpg',
       category: 'Copper Water Bottles',
       desc: 'Up to 20% Off. Use Code MyBottle',
+      url:'products/all-products/Aq3sSqrNHgoTjRNy4PXH'
     },
   ];
 
@@ -86,6 +88,9 @@ export class MainDashboardComponent implements OnInit {
         this.webStorage.set('orders', eachUser.orders);
       }
     });
+  }
+  goToProduct(advertisement:any):void{
+    this.router.navigate([advertisement.url]);
   }
   showProduct(product: any): void {
     this.webStorage.set('selectedProduct', product);

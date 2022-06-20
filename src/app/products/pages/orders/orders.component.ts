@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.allOrders = this.webstorage.get('orders');
+    const userDetails = this.webstorage.get('userDetails');
     this.innerWidth = window.innerWidth;
     console.log(this.innerWidth);
 

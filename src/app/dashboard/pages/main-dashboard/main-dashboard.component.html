@@ -15,7 +15,7 @@
             <div class="content">
                 <span>{{advertiseMents[sliderIndex].desc}}</span>
                 <h3>{{advertiseMents[sliderIndex].category}}</h3>
-                <a href="#" class="btn">shop now</a>
+                <a (click)="goToProduct(advertiseMents[sliderIndex])" class="btn">shop now</a>
             </div>
         </div>
 

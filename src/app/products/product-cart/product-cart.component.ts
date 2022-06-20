@@ -109,7 +109,7 @@ export class ProductCartComponent implements OnInit {
     this.myCart.forEach((eachProd: any) => {
       this.totalAmount += eachProd.qty * eachProd.price;
     });
-    this.discount = this.totalAmount * (this.discPercentage / 100);
+    this.discount = parseInt(`${this.totalAmount * (this.discPercentage / 100)}`) ;
     this.discountedPrice = this.totalAmount - this.discount;
   }
   generateUUID() {
@@ -148,6 +148,7 @@ export class ProductCartComponent implements OnInit {
       products: this.myCart,
       status: 'pending',
     };
+    this.firebaseService.addNewRecord('orders',order);
 
     if (this.loggedInUser.orders) {
       this.loggedInUser.orders.unshift(order);
