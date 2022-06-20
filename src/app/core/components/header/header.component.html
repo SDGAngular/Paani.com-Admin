@@ -1,67 +1,61 @@
-<div class="row">
-    <nav>
-        <input id="nav-toggle" type="checkbox">
-        <div style="cursor:pointer"  (click)="goToDashboard()" class="logo">
-          <img width="40px" height="40px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1655400003/paani.com/images-removebg-preview_h03kgd.png" alt="" srcset="">
-          PAANI.<strong>COM</strong></div>
-        <ul class="links">
-            <li><a style="cursor:pointer" (click)="goToDashboard()" >Dashboard</a></li>
-            <li><a style="cursor:pointer"  >Products</a></li>
-            <li><a style="cursor:pointer" >Complaints</a></li>
-            <li><a style="cursor:pointer">Support</a></li>
-            <li (click)="logOut()"><a style="cursor:pointer"  >
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
-                <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-              </svg>
-            
-            </a></li>
-            <li>
 
-                <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" type="button" class="btn btn-primary position-relative">
-                    
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                      3+
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bell-fill" viewBox="0 0 16 16">
-                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-                      </svg>
-                    </span>
-                  </button>
-               
-            </li>
-        </ul>
-        <label for="nav-toggle" class="icon-burger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </label>
-    </nav>
 
-    
-    
-</div>
+<section class="quick-links  " [ngClass]="hideCart&&hideNav?'centre':''">
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h3 class="offcanvas-title" id="offcanvasRightLabel">Notifications</h3>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <div class="" style="display:flex;justify-content:center">
+    <a  style="display: flex;
+    align-items: center;cursor:pointer" (click)="goToDashboard()"   class="logo">
+     <img width="40px" height="40px" src="https://res.cloudinary.com/duumuebzt/image/upload/v1655400003/paani.com/images-removebg-preview_h03kgd.png" alt="" srcset=""> Paani.com </a>
   </div>
-  <div class="offcanvas-body">
-    <div class="alert alert-danger" role="alert">
-      More than 3 escalated complaints that require your attention
-    </div>
-
-    <div class="alert alert-primary" role="alert">
-      Revenue growth is at it's all time high. Congratulations
-    </div>
-
-    <div class="alert alert-dark" role="alert">
-     Take a look on people who have logged in
-    </div>
-   <div>
   
-   </div>
-
-
+   
+  
+  
+    <div *ngIf="!hideNav" class="links">
+        <a  (click)="goToDashboard()" [ngClass]="url==='/dashboard/main-dashboard'?'highlight-tab':''"> Home </a>
+        <a *ngIf="false" href="about.html"> About </a>
+        <a [ngClass]="url==='all-products'?'highlight-tab':''" (click)="goToProducts()"> Products </a>
+        <a  [ngClass]="url==='/products/orders'?'highlight-tab':''" (click)="goToOrders()"  > Orders </a>
+    
+        
+    </div>
+  
+    <div *ngIf="!hideCart" class="share">
+  
+     
+     
+      <i (click)="goToCart()" class="fa" style="font-size:26px;cursor:pointer;color:aliceblue">&#xf07a;</i>
+      <span (click)="goToCart()" class='badge badge-warning' id='lblCartCount'> {{cartCount}} </span>
+   
+      <a (click)="openSideBar()" class="fas fa-user"></a>
+  
+      <a id="menu-btn" (click)="openSideBar()"  class="fas fa-bars"></a>
+  
+  
+        
+    </div>
+  
+  </section>
+  
+  
+  
+  
+  <div class="side-bar" [ngClass]="isSideBarOpen?'active':''">
+  
+    <div id="close-side-bar" (click)="openSideBar()" class="fas fa-times"></div>
+  
+    <div   class="user">
+        <img *ngIf="userDetails"  [src]="userDetails.profileImg" alt="">
+        <h3 *ngIf="userDetails" >{{userDetails.name}}</h3>
+        <a (click)="logOut()">log out</a>
+    </div>
+  
+    <nav class="navbar">
+        <a (click)="goToDashboard()"><i class="fas fa-angle-right"></i> home </a>
+        <a *ngIf="false" href="about.html"> <i class="fas fa-angle-right"></i> about </a>
+        <a (click)="goToProducts()" > <i class="fas fa-angle-right"></i> products </a>
+       
+        <a (click)="goToCart()"> <i class="fas fa-angle-right"></i> cart </a>
+    </nav>
+  
   </div>
-</div>

@@ -6,47 +6,46 @@
     <span *ngIf="showSideBar" style="margin-left:10px">PAANI.<strong>COM</strong></span></div>
   </a>
   <ul class="side-menu top">
-    <li [ngClass]="appliedTab==='dashboard'?'active':''">
-      <a (click)="setTab('dashboard')">
-        <i class='bx bxs-dashboard' ></i>
-        <span class="text">Dashboard</span>
-      </a>
-    </li>
-    <li [ngClass]="appliedTab==='products'?'active':''" >
-      <a (click)="setTab('products')">
-        <i class='bx bxs-shopping-bag-alt' ></i>
-        <span class="text">My Store</span>
-      </a>
-    </li>
-    <li [ngClass]="appliedTab==='analytics'?'active':''">
+    <li style="cursor:pointer" [ngClass]="appliedTab==='analytics'?'active':''">
       <a (click)="setTab('analytics')" >
-        <i class='bx bxs-doughnut-chart' ></i>
+        <i style="cursor:pointer" class='bx bxs-doughnut-chart' ></i>
         <span class="text">Analytics</span>
       </a>
     </li>
-    <li [ngClass]="appliedTab==='orders'?'active':''" >
+
+    <li style="cursor:pointer" [ngClass]="appliedTab==='products'?'active':''" >
+      <a (click)="setTab('products')">
+        <i style="cursor:pointer" class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">My Store</span>
+      </a>
+    </li>
+  
+    <li style="cursor:pointer" [ngClass]="appliedTab==='orders'?'active':''" >
       <a (click)="setTab('orders')">
-        <i class='bx bxs-message-dots' ></i>
+        <i style="cursor:pointer" class='bx bxs-package' ></i>
+  
         <span class="text">Orders</span>
       </a>
     </li>
-    <li [ngClass]="appliedTab==='complaints'?'active':''">
+    <li style="cursor:pointer" [ngClass]="appliedTab==='complaints'?'active':''">
       <a (click)="setTab('complaints')">
-        <i class='bx bxs-group' ></i>
+        <i style="cursor:pointer" class='bx bxs-bug' ></i>
+       
         <span class="text">Complaints</span>
       </a>
     </li>
   </ul>
   <ul class="side-menu">
     <li >
-      <a href="#">
+      <!-- Open After Settings Development -->
+      <a *ngIf="false" href="#">
         <i class='bx bxs-cog' ></i>
         <span class="text">Settings</span>
       </a>
     </li>
-    <li >
+    <li (click)="logOut()" >
       <a href="#" class="logout">
-        <i class='bx bxs-log-out-circle' ></i>
+        <i style="cursor:pointer" class='bx bxs-log-out-circle' ></i>
         <span class="text">Logout</span>
       </a>
     </li>

@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import {
   Chart,
   LinearScale,
@@ -10,6 +10,7 @@ import {
   registerables,
   Title,
 } from 'chart.js';
+import { AuthService } from 'src/app/auth/services/auth-service.service';
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -18,16 +19,33 @@ import { SearchService } from '../../services/search.service';
   styleUrls: ['./main-dashboard.component.css'],
 })
 export class MainDashboardComponent implements OnInit {
+
+  
+  innerWidth?: number;
   [x: string]: any;
   dark?: boolean;
   searchedText:any;
   appliedTab?: string;
   showSideBar?: boolean = true;
   searchForm = new FormControl('');
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    if(this.innerWidth<768){
+      this.showSideBar=false;
+    }
+    else{
+      this.showSideBar=true;
+    }
+
+    console.log(this.innerWidth);
+  }
 
   constructor(private elementRef: ElementRef, 
     private searchService: SearchService,
-    private router: Router) {}
+    private authService: AuthService,
+    private router:Router
+    ) {}
 
   ngOnInit(): void {
     Chart.register(
@@ -46,9 +64,17 @@ export class MainDashboardComponent implements OnInit {
     // this.plotComplaints();
     // this.plotRevenueChart();
   }
-  goToProducts(): void {
-    this.router.navigate(['products/all-products']);
+
+  
+
+  logOut() {
+    this.authService.logout().then((data: any) => {
+      this.router.navigate([''])
+    });
+
+   
   }
+  
   hideSideBar(): void {
     this.showSideBar = !this.showSideBar;
   }
@@ -73,11 +99,7 @@ export class MainDashboardComponent implements OnInit {
     });
 
   }
-  goToComplaints(): void {
-    console.log('hello');
-    this.router.navigate(['complaints/all-complaints']);
-  }
-
+ 
   plotSalesChart(): void {
     let htmlRef = this.elementRef.nativeElement.querySelector(
       `#sales`

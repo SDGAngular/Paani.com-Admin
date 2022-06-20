@@ -1,1 +1,162 @@
-<p>complaints works!</p>
+<main >
+    <div class="head-title">
+      <div class="left">
+        <h1>Complaints</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li><i class='bx bx-chevron-right' ></i></li>
+          <li>
+            <a class="active" href="#">Complaints</a>
+          </li>
+        </ul>
+      </div>
+      <a style="cursor:pointer" (click)="downloadExcel()" class="btn-download">
+        <i class='bx bxs-cloud-download' ></i>
+        <span class="text">Download .xlsx</span>
+      </a>
+    </div>
+
+    <ul class="box-info">
+      <li>
+        <i class='bx bx-box' ></i>
+        <span class="text">
+          <h3>{{totalComplaints}}</h3>
+          <p>Total Orders</p>
+        </span>
+      </li>
+      <li>
+        <i class='bx bx-wind' ></i>
+        <span class="text">
+          <h3>{{resolvedComplaints}}</h3>
+          <p>Resolved Complaints</p>
+        </span>
+      </li>
+      <li>
+        <i class='bx bxs-home-heart'></i>
+        <span class="text">
+          <h3>{{unresolvedComplaints}}</h3>
+          <p>Unresolved Complaints</p>
+        </span>
+      </li>
+    </ul>
+
+
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>All Complaints</h3>
+          <i class='bx bx-search' ></i>
+          <i class='bx bx-filter' ></i>
+        </div>
+        <table id="complaints-table">
+          <thead>
+            <tr >
+              <th>Complaint ID</th>
+              <th>User Name</th>
+              <th>Partner</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr (click)="selectComplaint(complaint)"  style="cursor:pointer" *ngFor="let complaint of allComplaints">
+              <td>
+                <img [src]="complaint.returnedItems[0].coverImg">
+                <p>{{complaint.id}}</p>
+              </td>
+              <td>{{complaint.userName}}</td>
+              <td>{{ 'Jal Pvt LTD' | titlecase}}</td>
+              <td *ngIf="complaint.status.toLowerCase()=='unrs'"><span class='status completed'>{{'Unresolved' | titlecase}}</span></td>
+              <td *ngIf="complaint.status.toLowerCase()=='rs'"><span class='status process'>{{'Resolved' | titlecase}}</span></td>
+
+            </tr>
+
+          
+              <td *ngIf="allComplaints.length===0">
+                <p style="margin-top: 10px; margin-left:40% ;text-align:center">No Records Found</p>
+              </td>
+              
+            
+           
+          </tbody>
+        </table>
+
+       
+
+
+      </div>
+      
+      <div *ngIf="showSelected" class="todo">
+        <div class="head">
+          <h3>Complaint Details</h3>
+          <i (click)="isEdit=!isEdit" class='bx bx-edit-alt'></i>
+          <i class='bx bx-x' (click)="showSelected=false" style="cursor:pointer" ></i>
+        </div>
+        <ul   class="todo-list">
+          <li *ngIf="!isEdit" class="not-completed">
+           
+            <div >  
+                <h1 *ngIf="selectedComplaint.status==='UNRS'" style="color:grey; font-size:30px; font-weight:bold">{{'UNRESOLVED'| titlecase}}</h1>
+                <h1 *ngIf="selectedComplaint.status==='RS'"  style="color:grey; font-size:30px; font-weight:bold">{{'RESOLVED' | titlecase}}</h1>
+                <p><br><strong>ID:</strong>  {{selectedComplaint.id}}</p>
+                <p><br><strong>Complaint Description:</strong>  {{selectedComplaint.complaintDesc}}</p>
+
+                <p ><br><strong>USER ID: </strong>{{selectedComplaint.userID}}</p>
+                <p ><br><strong>Order Cost: </strong>INR {{selectedComplaint.orderCost}}</p>
+            
+            
+            </div>
+           
+           
+            <!-- <i class='bx bx-dots-vertical-rounded' ></i> -->
+          
+            
+            
+            
+
+     
+
+          </li>
+          <li *ngIf="isEdit" class="not-completed">
+            <div style="display:block">
+              <label style="margin-bottom:10px">Complaint ID</label>
+              <input disabled=true  type="text" [(ngModel)]="selectedComplaint.id">
+              <label style="margin-bottom:10px">Complaint Description</label>
+              <textarea disabled=true name="" [(ngModel)]="selectedComplaint.complaintDesc"></textarea> 
+              <label style="margin-bottom:10px" >Retuned Price (INR)</label>
+              <input disabled=true type="text" [(ngModel)]="selectedComplaint.orderCost">
+              <label style="margin-bottom:10px;display:flex">Complaint Status</label>
+                <select [(ngModel)]="selectedComplaint.status" name="" id="">
+                    <option value="UNRS">Unresolved</option>
+                    <option value="RS">Resolved</option>
+
+                </select>
+              <button style="cursor:pointer" (click)="saveEditData()">Save Details</button>
+              <button style="cursor:pointer" (click)="isEdit=false" >Cancel</button>
+            </div>
+  
+            </li>
+          <li class="completed" *ngFor="let product of selectedComplaint.returnedItems"> 
+        
+            <img style="width:100px;height:100px" [src]="product.coverImg" alt="" srcset="">
+            <div>  <p style="font-weight: bold;"><br>{{product.productTitle.split(' ').slice(0,3).join(' ')}}</p><p ><br><strong>Price</strong>{{' '+product.price}}</p>
+                <p ><br><strong>Quantity</strong> {{' '+product.qty}}</p>
+            </div>
+
+          
+
+         
+
+
+          
+          
+        </ul>
+        
+      </div>
+      
+    
+    </div>
+  </main>
+
+

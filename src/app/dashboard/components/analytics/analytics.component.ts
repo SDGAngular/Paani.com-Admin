@@ -1,9 +1,9 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Chart, LinearScale, LineController, LineElement, PointElement, registerables, Title } from 'chart.js';
 import * as _ from 'lodash';
+import { LoaderService } from '../../services/loader.service';
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -22,18 +22,30 @@ export class AnalyticsComponent implements OnInit {
   constructor(private elementRef: ElementRef,
     private searchService: SearchService,
     private http: HttpClient,
-    private router:Router) { }
+    private loader: LoaderService,
+   ) { }
 
   ngOnInit(): void {
-    this.http.get('../../../../assets/JSONS/partners-data.json').subscribe((data:any)=>{
-      this.allPartners=data;
-      this.copyAllPartners=_.cloneDeep(data);
+    this.loader.start();
+    setTimeout(()=>{
       
-    });
-    this.http.get('../../../../assets/JSONS/analytics-notificatons.json').subscribe((data:any)=>{
-      this.notifications=data;
-      
-    });
+      this.loader.stop()
+      this.http.get('../../../../assets/JSONS/partners-data.json').subscribe((data:any)=>{
+        this.allPartners=data;
+        this.copyAllPartners=_.cloneDeep(data);
+
+       
+        
+      });
+
+      this.http.get('../../../../assets/JSONS/analytics-notificatons.json').subscribe((data:any)=>{
+        this.notifications=data;
+        
+      });
+    
+    },2000);
+    
+   
     this.searchService.searchSubject.subscribe((data)=>{
       console.log(data);
       this.searchText(data.text);

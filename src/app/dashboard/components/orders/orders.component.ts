@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
+import { GenerateExcelService } from '../../services/generate-excel.service';
 import { LoaderService } from '../../services/loader.service';
 import { SearchService } from '../../services/search.service';
 
@@ -15,6 +16,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private firebase: FirebaseControllerService,
     private loader: LoaderService,
+    private excelService: GenerateExcelService,
     private searchService: SearchService
   ) {}
   allOrders: any = [];
@@ -50,6 +52,16 @@ export class OrdersComponent implements OnInit {
     this.searchService.searchSubject.subscribe((data)=>{
       this.searchText(data.text);
     })
+  }
+
+  downloadExcel():void{
+
+    let element = document.getElementById('orders-table');
+   
+    const fileName = 'Orders-Table';
+
+    this.excelService.downloadExcel(element,fileName);
+    
   }
   searchText(text:any):void{
   

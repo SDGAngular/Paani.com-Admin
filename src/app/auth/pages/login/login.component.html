@@ -1,6 +1,20 @@
+
+
+
 <body>
+<div style="    background-color: blue;
+height: 110px;
+display: block;
+text-align: center;
+">
+  <img  src="https://res.cloudinary.com/duumuebzt/image/upload/v1655400003/paani.com/images-removebg-preview_h03kgd.png" style="    margin-top: 10px;
+  height: 43px;
+  width: 45px;" alt="" srcset="">
+
+  <h1 style="margin-top:10px;color:whitesmoke">PAANI.COM</h1>
+</div>
   <div class="center">
-    <h1>Login</h1>
+    <h1>Admin Login</h1>
     <form method="post">
       <ng-container *ngIf="!loading">
         <div class="txt_field">
@@ -13,7 +27,7 @@
           <span></span>
           <label>Password</label>
         </div>
-        <div class="pass">Forgot Password?</div>
+        <div (click)="enterTestCredentials()" class="pass">Enter Test Credentials</div>
 
         <input type="submit" value="Login" (click)="loginWithEmailAndPassword()">
 
@@ -22,20 +36,17 @@
 
 
       </ng-container>
-      <ng-container *ngIf="loading">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-
-      </ng-container>
+      
 
       <div class="signup_link">
         Not a member? <a href="#">Signup</a>
       </div>
     </form>
 
-    <div *ngIf="invalidLogin" class="alert alert-danger" style="text-align:center;" role="alert">
-      Invalid Username or password
+    <div *ngIf="invalidLogin" class="alert alert-danger" style="    text-align: center;
+    background-color: #ff9797;
+    padding-top: 10px;" role="alert">
+      Invalid Login Credentials
     </div>
 
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { FirebaseControllerService } from 'src/app/core/services/firebase-controller.service';
+import { GenerateExcelService } from '../../services/generate-excel.service';
 import { LoaderService } from '../../services/loader.service';
 import { SearchService } from '../../services/search.service';
 
@@ -31,6 +32,7 @@ export class StoreComponent implements OnInit {
   constructor(
     private firebase: FirebaseControllerService,
     private searchService: SearchService,
+    private excelService: GenerateExcelService,
     private loader: LoaderService,
   ) {}
 
@@ -61,6 +63,16 @@ export class StoreComponent implements OnInit {
   }
   enableEdit(): void {
     this.isEdit = true;
+  }
+
+  downloadExcel():void{
+
+    let element = document.getElementById('products-table');
+   
+    const fileName = 'Products-Table';
+
+    this.excelService.downloadExcel(element,fileName);
+    
   }
 
   saveNewProduct(): void {
