@@ -29,6 +29,7 @@ export class ProductCartComponent implements OnInit {
   discPercentage: number = 0;
   discount = 0;
   discountedPrice = 0;
+  
   ngOnInit(): void {
     this.loggedInUser = this.webStorage.get('userDetails');
 
