@@ -60,7 +60,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr (click)="selectOrder(orders)"  style="cursor:pointer" *ngFor="let orders of allOrders">
+            <ng-container *ngFor="let orders of allOrders">
+            <tr (click)="selectOrder(orders)" *ngIf="orders.userDetails"  style="cursor:pointer" >
               <td>
                 <img [src]="orders.userDetails.coverImg">
                 <p>{{orders.orderID.split('-')[0]}}</p>
@@ -71,7 +72,7 @@
               <td *ngIf="orders.status.toLowerCase()=='pending'"><span class='status process'>{{orders.status | titlecase}}</span></td>
               <td *ngIf="orders.status.toLowerCase()=='refund initiated'"><span class='status pending'>Refunded</span></td>
             </tr>
-
+          </ng-container>
           
               <td *ngIf="allOrders.length===0">
                 <p style="margin-top: 10px; margin-left:40% ;text-align:center">No Records Found</p>
